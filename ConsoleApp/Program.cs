@@ -4,8 +4,10 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hej - vad heter du ?");
-            Calculator.CalcMoms2();
+            //  Console.WriteLine("Hej - vad heter du ?");
+            //Calculator.CalcMoms2();
+
+            Array.Start();
 
         }
     }

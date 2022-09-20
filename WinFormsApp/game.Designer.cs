@@ -49,7 +49,7 @@
             this.lblPlayer1.Size = new System.Drawing.Size(48, 15);
             this.lblPlayer1.TabIndex = 0;
             this.lblPlayer1.Text = "Player 1";
-            this.lblPlayer1.Click += new System.EventHandler(this.label1_Click);
+          
             // 
             // lblPlayer2
             // 
@@ -70,6 +70,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(54, 95);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+           
             // 
             // pictureBox2
             // 
@@ -127,7 +128,7 @@
             this.Controls.Add(this.lblPlayer1);
             this.Name = "game";
             this.Text = "game";
-            this.Load += new System.EventHandler(this.game_Load);
+         
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.game_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
