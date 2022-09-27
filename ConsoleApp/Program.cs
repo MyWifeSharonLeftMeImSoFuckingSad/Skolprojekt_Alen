@@ -7,7 +7,9 @@
             //  Console.WriteLine("Hej - vad heter du ?");
             //Calculator.CalcMoms2();
 
-            Array.Start();
+            //loopar.ForExample();
+            //loopar.WhileExample();
+            loopar.LooparGissa();
 
         }
     }
