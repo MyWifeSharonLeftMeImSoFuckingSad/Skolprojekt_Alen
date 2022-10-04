@@ -28,73 +28,107 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.domFirst = new System.Windows.Forms.DomainUpDown();
-            this.domLast = new System.Windows.Forms.DomainUpDown();
-            this.domAnswer = new System.Windows.Forms.DomainUpDown();
-            this.btnRandom = new System.Windows.Forms.Button();
-            this.lblRandomNumber = new System.Windows.Forms.Label();
-            this.lblBetween = new System.Windows.Forms.Label();
+            this.btnSlumpa = new System.Windows.Forms.Button();
+            this.numTal_1 = new System.Windows.Forms.NumericUpDown();
+            this.numTal_2 = new System.Windows.Forms.NumericUpDown();
+            this.num_Slumptal = new System.Windows.Forms.NumericUpDown();
+            this.lb = new System.Windows.Forms.Label();
+            this.lblb = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.numTal_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTal_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Slumptal)).BeginInit();
             this.SuspendLayout();
             // 
-            // domFirst
+            // btnSlumpa
             // 
-            this.domFirst.Location = new System.Drawing.Point(338, 176);
-            this.domFirst.Name = "domFirst";
-            this.domFirst.Size = new System.Drawing.Size(63, 23);
-            this.domFirst.TabIndex = 0;
-            this.domFirst.Text = "domainUpDown1";
+            this.btnSlumpa.Location = new System.Drawing.Point(290, 234);
+            this.btnSlumpa.Name = "btnSlumpa";
+            this.btnSlumpa.Size = new System.Drawing.Size(288, 23);
+            this.btnSlumpa.TabIndex = 0;
+            this.btnSlumpa.Text = "Slumpa";
+            this.btnSlumpa.UseVisualStyleBackColor = true;
             // 
-            // domLast
+            // numTal_1
             // 
-            this.domLast.Location = new System.Drawing.Point(0, 0);
-            this.domLast.Name = "domLast";
-            this.domLast.Size = new System.Drawing.Size(120, 23);
-            this.domLast.TabIndex = 0;
+            this.numTal_1.Location = new System.Drawing.Point(290, 205);
+            this.numTal_1.Name = "numTal_1";
+            this.numTal_1.Size = new System.Drawing.Size(83, 23);
+            this.numTal_1.TabIndex = 1;
+            this.numTal_1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // domAnswer
+            // numTal_2
             // 
-            this.domAnswer.Location = new System.Drawing.Point(0, 0);
-            this.domAnswer.Name = "domAnswer";
-            this.domAnswer.Size = new System.Drawing.Size(120, 23);
-            this.domAnswer.TabIndex = 0;
+            this.numTal_2.Location = new System.Drawing.Point(379, 205);
+            this.numTal_2.Name = "numTal_2";
+            this.numTal_2.Size = new System.Drawing.Size(83, 23);
+            this.numTal_2.TabIndex = 2;
             // 
-            // btnRandom
+            // num_Slumptal
             // 
-            this.btnRandom.Location = new System.Drawing.Point(0, 0);
-            this.btnRandom.Name = "btnRandom";
-            this.btnRandom.Size = new System.Drawing.Size(75, 23);
-            this.btnRandom.TabIndex = 0;
+            this.num_Slumptal.Location = new System.Drawing.Point(468, 205);
+            this.num_Slumptal.Name = "num_Slumptal";
+            this.num_Slumptal.Size = new System.Drawing.Size(110, 23);
+            this.num_Slumptal.TabIndex = 3;
             // 
-            // lblRandomNumber
+            // lb
             // 
-            this.lblRandomNumber.Location = new System.Drawing.Point(0, 0);
-            this.lblRandomNumber.Name = "lblRandomNumber";
-            this.lblRandomNumber.Size = new System.Drawing.Size(100, 23);
-            this.lblRandomNumber.TabIndex = 0;
+            this.lb.AutoSize = true;
+            this.lb.Location = new System.Drawing.Point(289, 176);
+            this.lb.Name = "lb";
+            this.lb.Size = new System.Drawing.Size(96, 15);
+            this.lb.TabIndex = 4;
+            this.lb.Text = "Slump mellan tal";
             // 
-            // lblBetween
+            // lblb
             // 
-            this.lblBetween.Location = new System.Drawing.Point(0, 0);
-            this.lblBetween.Name = "lblBetween";
-            this.lblBetween.Size = new System.Drawing.Size(100, 23);
-            this.lblBetween.TabIndex = 0;
+            this.lblb.AutoSize = true;
+            this.lblb.Location = new System.Drawing.Point(468, 176);
+            this.lblb.Name = "lblb";
+            this.lblb.Size = new System.Drawing.Size(84, 15);
+            this.lblb.TabIndex = 5;
+            this.lblb.Text = "Antal slumptal";
+            this.lblb.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.textBox1.Location = new System.Drawing.Point(288, 272);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(290, 23);
+            this.textBox1.TabIndex = 6;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // loopar
             // 
-            this.ClientSize = new System.Drawing.Size(495, 261);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblb);
+            this.Controls.Add(this.lb);
+            this.Controls.Add(this.num_Slumptal);
+            this.Controls.Add(this.numTal_2);
+            this.Controls.Add(this.numTal_1);
+            this.Controls.Add(this.btnSlumpa);
             this.Name = "loopar";
-            this.Load += new System.EventHandler(this.loopar_Load);
+            this.Text = "loopar";
+            ((System.ComponentModel.ISupportInitialize)(this.numTal_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTal_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Slumptal)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private DomainUpDown domFirst;
-        private DomainUpDown domLast;
-        private DomainUpDown domAnswer;
-        private Button btnRandom;
-        private Label lblRandomNumber;
-        private Label lblBetween;
+        private Button btnSlumpa;
+        private NumericUpDown numTal_1;
+        private NumericUpDown numTal_2;
+        private NumericUpDown num_Slumptal;
+        private Label lb;
+        private Label lblb;
+        private TextBox textBox1;
     }
 }
