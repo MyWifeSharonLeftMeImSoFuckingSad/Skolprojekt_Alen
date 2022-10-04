@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WinFormsApp
 {
-    public partial class game : Form
+   /* public partial class game : Form
     {
         System.Windows.Forms.Timer GameTimer { get; set; } = new System.Windows.Forms.Timer();
 
@@ -114,16 +114,16 @@ namespace WinFormsApp
             }
 
             lblPlayer1Points.Text = p1Points.ToString();
-            lblPlayer2Points.Text = p2Points.ToString();
+            lblPlayer2Points.Text = p2Points.ToString();*/
 
         }
-        private void game_KeyDown(object sender, KeyEventArgs e)
+        /*private void game_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.A)
             {
 
             }
         }
-
-    }
-}
+        */
+    /*}
+}*/

@@ -39,10 +39,11 @@ namespace WinFormsApp
             int[] test = new int[num_slumpa];
 
 
-            for (int i = num_slumpa; i > 0; i++)
+            for (int i = 0; i < num_slumpa; i++)
             {
-                int newNum = r.Next(num_1, num_2);
-                if (test.Contains(newNum){
+                int newNum = r.Next(num_1, num_2+1);
+                if (test.Contains(newNum))
+                {
                     i--;
                 }
                 else
@@ -56,6 +57,11 @@ namespace WinFormsApp
             }
 
 
+
+        }
+
+        private void textSlumpa_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

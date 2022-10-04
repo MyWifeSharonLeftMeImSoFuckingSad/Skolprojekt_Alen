@@ -95,6 +95,7 @@
             this.textSlumpa.Name = "textSlumpa";
             this.textSlumpa.Size = new System.Drawing.Size(110, 23);
             this.textSlumpa.TabIndex = 9;
+            this.textSlumpa.TextChanged += new System.EventHandler(this.textSlumpa_TextChanged);
             // 
             // loopar
             // 
