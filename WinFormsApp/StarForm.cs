@@ -24,5 +24,18 @@ namespace WinFormsApp
             moms.Show();
             moms.Focus();
         }
+
+        private void StarForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void looparToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loopar loopar = new loopar();
+            loopar.MdiParent = this;
+            loopar.Show();
+            loopar.Focus();
+        }
     }
 }

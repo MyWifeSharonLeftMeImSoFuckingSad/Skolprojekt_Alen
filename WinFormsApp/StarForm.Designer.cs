@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.momsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.looparToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,7 +39,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.momsToolStripMenuItem,
-            this.gameToolStripMenuItem});
+            this.gameToolStripMenuItem,
+            this.looparToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -58,6 +60,13 @@
             this.gameToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.gameToolStripMenuItem.Text = "Game";
             // 
+            // looparToolStripMenuItem
+            // 
+            this.looparToolStripMenuItem.Name = "looparToolStripMenuItem";
+            this.looparToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.looparToolStripMenuItem.Text = "Loopar";
+            this.looparToolStripMenuItem.Click += new System.EventHandler(this.looparToolStripMenuItem_Click);
+            // 
             // StarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -68,6 +77,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "StarForm";
             this.Text = "StarForm";
+            this.Load += new System.EventHandler(this.StarForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -80,5 +90,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem momsToolStripMenuItem;
         private ToolStripMenuItem gameToolStripMenuItem;
+        private ToolStripMenuItem looparToolStripMenuItem;
     }
 }
