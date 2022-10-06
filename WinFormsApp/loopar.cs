@@ -51,10 +51,14 @@ namespace WinFormsApp
                     test[i] = newNum;
                 }
             }
+
+            Array.Sort(test);
+
             foreach (int i in test)
             {
                 textBox1.Text += i + " ";
             }
+
 
 
 
