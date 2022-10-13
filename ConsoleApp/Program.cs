@@ -9,7 +9,8 @@
 
             //loopar.ForExample();
             //loopar.WhileExample();
-            loopar.LooparGissa();
+            //loopar.LooparGissa();
+            
 
         }
     }
