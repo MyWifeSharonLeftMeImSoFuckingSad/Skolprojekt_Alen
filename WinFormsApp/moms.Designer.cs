@@ -113,6 +113,7 @@
             this.Controls.Add(this.txtPriceOG);
             this.Name = "moms";
             this.Text = "moms";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.moms_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

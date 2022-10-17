@@ -45,5 +45,10 @@ namespace WinFormsApp
             txtPriceAfter.Text = priceAfter.ToString();
 
         }
+
+        private void moms_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

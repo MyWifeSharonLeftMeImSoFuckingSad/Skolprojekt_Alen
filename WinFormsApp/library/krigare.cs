@@ -8,21 +8,26 @@ using WinFormsApp.Properties;
 
 namespace WinFormsApp.library
 {
-    internal class krigare:PictureBox
+    internal class krigare : PictureBox
     {
         public krigare()
         {
             this.BackgroundImage = Resources.elias_afen;
             this.BackgroundImageLayout = ImageLayout.Stretch;
-            this.Width = 100;
-            this.Height = 100;
+            this.Width = 50;
+            this.Height = 50;
             this.Top = 300;
             this.Left = 250;
         }
 
-       /* public move()
+        
+        public void Stopping()
         {
-
-        }*/
+            if(this.Top == 0)
+            {
+                this.Top = +20;
+            }
+        }
+   
     }
 }

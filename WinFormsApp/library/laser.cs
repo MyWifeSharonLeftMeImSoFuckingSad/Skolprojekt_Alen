@@ -7,27 +7,17 @@ using WinFormsApp.Properties;
 
 namespace WinFormsApp.library
 {
-    internal class ast : PictureBox
+    internal class laser: PictureBox
     {
-        public int Gravity = 5;
-        public ast()
+        public laser()
         {
-            this.BackgroundImage = Resources.ast;
+            this.BackgroundImage = Resources.laser;
             this.BackgroundImageLayout = ImageLayout.Stretch;
             this.Top = 150;
             this.Left = 150;
             this.Width = 25;
-            this.Height = 25;
-
+            this.Height = 17;
         }
 
-        public void Fall()
-        {
-            this.Top += Gravity;
-            if(this.Top > 500)
-            {
-                this.Top = 0;
-            }
-        }
     }
 }

@@ -15,17 +15,19 @@ namespace WinFormsApp
     {
         List<ast> asts = new List<ast>();
         krigare k = new krigare();
+        ast a = new ast();
+        
         public starship()
         {
             InitializeComponent();
             Random r = new Random();
-            for(int i = 0; i<12; i++)
+            for(int i = 0; i<10; i++)
             {
-                ast a = new ast();
+              
+                this.Controls.Add(a);
                 a.Top = 0;
                 a.Left = r.Next(1, 801);
-                this.Controls.Add(a);
-                a.Gravity = r.Next(7, 27);
+                a.Gravity = r.Next(7, 18);
                 asts.Add(a);
             }
 
@@ -44,12 +46,44 @@ namespace WinFormsApp
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        public void timer1_Tick(object sender, EventArgs e)
         {
             foreach (ast a in asts)
             {
                 a.Fall();
             }
+
+           
+            if (k.Bounds.IntersectsWith(a.Bounds))
+            {
+                Application.Exit();
+            }
+
+            Stopping();
+        }
+
+        private void starship_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.W)
+            {
+                k.Top -= 20;
+            }
+
+            if(e.KeyCode == Keys.D)
+            {
+                k.Left += 20;
+            }
+
+            if(e.KeyCode == Keys.A)
+            {
+                k.Left -= 20;
+            }
+
+            if(e.KeyCode == Keys.S)
+            {
+                k.Top += 20;
+            }
+
         }
     }
 }
