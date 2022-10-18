@@ -14,16 +14,14 @@ namespace WinFormsApp
     public partial class starship : Form
     {
         List<ast> asts = new List<ast>();
-        krigare k = new krigare();
-        ast a = new ast();
-        
+        krigare k = new krigare();     
         public starship()
         {
             InitializeComponent();
             Random r = new Random();
             for(int i = 0; i<10; i++)
             {
-              
+                ast a = new ast();
                 this.Controls.Add(a);
                 a.Top = 0;
                 a.Left = r.Next(1, 801);
@@ -51,15 +49,34 @@ namespace WinFormsApp
             foreach (ast a in asts)
             {
                 a.Fall();
+                if (k.Bounds.IntersectsWith(a.Bounds))
+                {
+                    timer1.Stop();
+                    MessageBox.Show("L");
+                    Application.Exit();
+                }
+               
+                if(k.Left < 0)
+                {
+                    k.Left = 0;
+                }
+
+                if(k.Left > this.Width)
+                {
+                    k.Left = this.Width - 75;
+                }
+
+                if(k.Top < 0)
+                {
+                    k.Top = 0;
+                }
+
+                if(k.Top > this.Height)
+                {
+                    k.Top = this.Height - 100;
+                }
             }
 
-           
-            if (k.Bounds.IntersectsWith(a.Bounds))
-            {
-                Application.Exit();
-            }
-
-            Stopping();
         }
 
         private void starship_KeyDown(object sender, KeyEventArgs e)

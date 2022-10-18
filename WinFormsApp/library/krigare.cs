@@ -23,6 +23,7 @@ namespace WinFormsApp.library
         
         public void Stopping()
         {
+            this.Top += 0;
             if(this.Top == 0)
             {
                 this.Top = +20;
