@@ -19,7 +19,7 @@ namespace Monogame_skolspel
         private Texture2D playerCurrent;
 
         int Speed = 5;
-        private bool isCurrentTexture = true;
+        private bool isCurrentTexture = false;
         private Vector2 position = new Vector2(200, 300);
 
 
@@ -60,34 +60,8 @@ namespace Monogame_skolspel
 
             // TODO: Add your update logic here
 
-            var kb = Keyboard.GetState();
-
            
-
-            if (kb.IsKeyDown(Keys.W) && )
-            {
-                position.Y -= Speed;
-                playerCurrent = playerBack;
-
-            }
-
-            if (kb.IsKeyDown(Keys.S))
-            {
-                position.Y += Speed;
-                //playerCurrent = playerNormal;
-            }
-
-            if (kb.IsKeyDown(Keys.A))
-            {
-                position.X -= Speed;
-                //playerCurrent = playerLeft;
-            }
-
-            if (kb.IsKeyDown(Keys.D))
-            {
-                position.X += Speed;
-                //playerCurrent = playerRight;
-            }
+    
 
             base.Update(gameTime);
         }
@@ -98,7 +72,42 @@ namespace Monogame_skolspel
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(background, Vector2.Zero, Color.White);
-            _spriteBatch.Draw(playerCurrent, position, Color.White);
+            //_spriteBatch.Draw(playerCurrent, position, Color.White);
+
+            var kb = Keyboard.GetState();
+
+            if (kb.IsKeyDown(Keys.W))
+            {
+                position.Y -= Speed;
+                //playerCurrent = playerBack;
+                _spriteBatch.Draw(playerBack, position, Color.White);
+
+
+            }
+            else
+            {
+                //playerCurrent = playerNormal;
+                _spriteBatch.Draw(playerNormal, position, Color.White);
+
+            };
+
+            if (kb.IsKeyDown(Keys.S))
+            {
+                position.Y += Speed;
+                _spriteBatch.Draw(playerNormal, position, Color.White);
+            }
+
+            if (kb.IsKeyDown(Keys.A))
+            {
+                position.X -= Speed;
+                _spriteBatch.Draw(playerLeft, position, Color.White);
+            }
+
+            if (kb.IsKeyDown(Keys.D))
+            {
+                position.X += Speed;
+                _spriteBatch.Draw(playerRight, position, Color.White);
+            }
 
             _spriteBatch.End();
             // TODO: Add your drawing code here
