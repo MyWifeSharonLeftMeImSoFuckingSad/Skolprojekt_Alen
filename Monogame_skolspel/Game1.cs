@@ -12,7 +12,17 @@ namespace Monogame_skolspel
         
 
         private Texture2D background;
-        private Texture2D player;
+        private Texture2D playerNormal;
+        private Texture2D playerRight;
+        private Texture2D playerLeft;
+        private Texture2D playerBack;
+        private Texture2D playerCurrent;
+
+        int Speed = 5;
+        private bool isCurrentTexture = true;
+        private Vector2 position = new Vector2(200, 300);
+
+
 
         public Game1()
         {
@@ -32,6 +42,13 @@ namespace Monogame_skolspel
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             background = Content.Load<Texture2D>("space_bg");
+            playerNormal = Content.Load<Texture2D>("normalPlayer");
+            playerRight = Content.Load<Texture2D>("rightPlayer");
+            playerLeft = Content.Load<Texture2D>("leftplayer");
+            playerBack = Content.Load<Texture2D>("backPlayer");
+
+            
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -43,6 +60,35 @@ namespace Monogame_skolspel
 
             // TODO: Add your update logic here
 
+            var kb = Keyboard.GetState();
+
+           
+
+            if (kb.IsKeyDown(Keys.W) && )
+            {
+                position.Y -= Speed;
+                playerCurrent = playerBack;
+
+            }
+
+            if (kb.IsKeyDown(Keys.S))
+            {
+                position.Y += Speed;
+                //playerCurrent = playerNormal;
+            }
+
+            if (kb.IsKeyDown(Keys.A))
+            {
+                position.X -= Speed;
+                //playerCurrent = playerLeft;
+            }
+
+            if (kb.IsKeyDown(Keys.D))
+            {
+                position.X += Speed;
+                //playerCurrent = playerRight;
+            }
+
             base.Update(gameTime);
         }
 
@@ -52,6 +98,7 @@ namespace Monogame_skolspel
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(background, Vector2.Zero, Color.White);
+            _spriteBatch.Draw(playerCurrent, position, Color.White);
 
             _spriteBatch.End();
             // TODO: Add your drawing code here
