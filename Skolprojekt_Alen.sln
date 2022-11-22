@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp", "WinFormsApp\WinFormsApp.csproj", "{445223BF-326E-499E-A82A-8512C87A839E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monogame_skolspel", "Monogame_skolspel\Monogame_skolspel.csproj", "{5FCC6203-2DB4-43BA-AE9A-73FD1C76E64F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monogame_skolspel", "Monogame_skolspel\Monogame_skolspel.csproj", "{5FCC6203-2DB4-43BA-AE9A-73FD1C76E64F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
