@@ -19,8 +19,9 @@ namespace Monogame_skolspel
         private Texture2D playerRight;
         private Texture2D playerLeft;
         private Texture2D playerBack;
-        private Texture2D playerCurrent;
-        //private sprite player;
+        private Texture2D currentTexture;
+        sprite player;
+        private Texture2D _player;
 
         int Speed = 5;
         //private Vector2 position = new Vector2(200, 300);
@@ -48,26 +49,35 @@ namespace Monogame_skolspel
             background = Content.Load<Texture2D>("space_bg");
             playerNormal = Content.Load<Texture2D>("normalPLayer");
             playerLeft = Content.Load<Texture2D>("leftplayer");
-            playerRight = Content.Load<Texture2D>("rightPlayer");
+
+            //currentTexture = playerNormal;
+            //var ks = Keyboard.GetState();
+            //if (ks.IsKeyDown(Keys.D))
+            //{
+            //    currentTexture = playerRight;
+            //}
+
+
+
+            //textureRight = Content.Load<Texture2D>("rightPlayer");
 
 
             /* playerNormal = Content.Load<Texture2D>("normalPlayer");
              playerRight = Content.Load<Texture2D>("rightPlayer");
              playerLeft = Content.Load<Texture2D>("leftplayer");
              playerBack = Content.Load<Texture2D>("backPlayer");*/
-
-            //player a = new player(playerLeft);
-            //_sprites.Add(a);
+            _player = Content.Load<Texture2D>("playerSheet");
 
 
-            //player s = new player(playerNormal);
-            //_sprites.Add(s);
 
-            player d = new player(playerRight);
-            _sprites.Add(d);
+            player s = new player(_player);
+            _sprites.Add(s);
 
-            player n = new player(playerNormal);
-            _sprites.Add(n);
+
+
+
+
+
 
 
 
@@ -84,6 +94,9 @@ namespace Monogame_skolspel
 
             // TODO: Add your update logic here
             _sprites.ForEach(e => e.Update());
+
+           
+
 
 
             base.Update(gameTime);

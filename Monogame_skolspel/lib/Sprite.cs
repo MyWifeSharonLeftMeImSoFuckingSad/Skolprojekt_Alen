@@ -11,7 +11,9 @@ namespace Monogame_skolspel.lib
     public abstract class sprite {
 
         public Texture2D texture { get; set; }
+        //public Texture2D textureRight { get; set; }
         public Vector2 position;
+        public Vector2 position2;
         public virtual Color Color { get; set; } = Color.White;
         public int _speed { get; set;  } = 5;
 
