@@ -114,8 +114,28 @@ namespace Monogame_skolspel.lib
                 delay--;
             }
 
+            if(position.X <= 0)
+            {
+                position.X = 0;
+            }
 
+            if (position.X >= 800 - 45)
+            {
+                position.X = 800 - 45;
+            }
 
+            if (position.Y >= 500 - 45)
+            {
+                position.Y = 500 - 50;
+            }
+
+            if (position.Y <= 0)
+            {
+                position.Y = 0;
+            }
+
+            //screen-jail
+            //if()
 
 
         }

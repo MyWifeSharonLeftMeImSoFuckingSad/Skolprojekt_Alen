@@ -15,15 +15,15 @@ namespace Monogame_skolspel
         
 
         private Texture2D background;
-        private Texture2D playerNormal;
-        private Texture2D playerRight;
-        private Texture2D playerLeft;
-        private Texture2D playerBack;
-        private Texture2D currentTexture;
+        //private Texture2D playerNormal;
+        //private Texture2D playerRight;
+        //private Texture2D playerLeft;
+        //private Texture2D playerBack;
+        //private Texture2D currentTexture;
         sprite player;
         private Texture2D _player;
 
-        int Speed = 5;
+        //int Speed = 5;
         //private Vector2 position = new Vector2(200, 300);
 
 
@@ -38,6 +38,10 @@ namespace Monogame_skolspel
 
         protected override void Initialize()
         {
+
+            _graphics.PreferredBackBufferWidth = 800;
+            _graphics.PreferredBackBufferHeight = 500;
+            _graphics.ApplyChanges();
             // TODO: Add your initialization logic here
 
             base.Initialize();
@@ -47,8 +51,8 @@ namespace Monogame_skolspel
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             background = Content.Load<Texture2D>("space_bg");
-            playerNormal = Content.Load<Texture2D>("normalPLayer");
-            playerLeft = Content.Load<Texture2D>("leftplayer");
+            //playerNormal = Content.Load<Texture2D>("normalPLayer");
+            //playerLeft = Content.Load<Texture2D>("leftplayer");
 
             //currentTexture = playerNormal;
             //var ks = Keyboard.GetState();
@@ -73,8 +77,14 @@ namespace Monogame_skolspel
             player s = new player(_player);
             _sprites.Add(s);
 
+            //int test = (int)s.position.X;
 
+            //int s.x = 0 + player.width;
 
+            //if (s.position.X >= 0)
+            //{
+            //    s.position.X += 100    ;
+            //}
 
 
 
