@@ -22,6 +22,9 @@ namespace Monogame_skolspel
         //private Texture2D currentTexture;
         sprite player;
         private Texture2D _player;
+        bool isPLaying = false;
+        private Rectangle Start;
+        private Texture2D Start_color;
 
         //int Speed = 5;
         //private Vector2 position = new Vector2(200, 300);
@@ -51,6 +54,9 @@ namespace Monogame_skolspel
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             background = Content.Load<Texture2D>("space_bg");
+            Start = new Rectangle(10, 11, 35, 105);
+            Start_color = new Texture2D(GraphicsDevice, 1, 1);
+            Start_color.SetData(new Color[] { Color.DarkGray });
             //playerNormal = Content.Load<Texture2D>("normalPLayer");
             //playerLeft = Content.Load<Texture2D>("leftplayer");
 
@@ -103,7 +109,7 @@ namespace Monogame_skolspel
                 Exit();
 
             // TODO: Add your update logic here
-            _sprites.ForEach(e => e.Update());
+            //_sprites.ForEach(e => e.Update());
 
            
 
@@ -116,7 +122,8 @@ namespace Monogame_skolspel
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            _sprites.ForEach(e => e.Draw(_spriteBatch));
+            _spriteBatch.Draw(Start_color, Start, Color.White);
+            //_sprites.ForEach(e => e.Draw(_spriteBatch));
             //_spriteBatch.Draw(background, Vector2.Zero, Color.White);
 
             //_spriteBatch.Draw(p, p.position,Color.White);
