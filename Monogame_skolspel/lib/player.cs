@@ -22,7 +22,7 @@ namespace Monogame_skolspel.lib
         {
             texture = _graphics;
             position = new Vector2(200, 300);
-            position2 = new Vector2(300, 300);
+            //position2 = new Vector2(300, 300);
 
             SpritePos.Add("normal0", new Rectangle(10, 11, 60, 50));
             SpritePos.Add("normal1", new Rectangle(75, 11, 60, 50));
@@ -137,7 +137,10 @@ namespace Monogame_skolspel.lib
             //screen-jail
             //if()
 
+            //if (SpritePos.Intersect(SpritePosEnemy))
+            //{
 
+            //}
         }
 
         public override void Draw(SpriteBatch spritebatch)
@@ -164,6 +167,7 @@ namespace Monogame_skolspel.lib
 
 
 
+
             //spritebatch.Draw(texture, position, SpritePos["normal0"], Color.White);
             //spritebatch.Draw(texture, position2, SpritePos["normal1"], Color.White);
 
@@ -171,9 +175,9 @@ namespace Monogame_skolspel.lib
         }
     }
 
-    
 
-   
+
+
 
 
 

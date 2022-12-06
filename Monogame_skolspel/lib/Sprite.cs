@@ -22,7 +22,15 @@ namespace Monogame_skolspel.lib
             spritebatch.Draw(texture, position, Color);
         }
 
-      public abstract void Update();
+
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            }
+        }
+        public abstract void Update();
 
     }
 
