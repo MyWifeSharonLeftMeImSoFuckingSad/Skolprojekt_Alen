@@ -21,6 +21,14 @@ namespace Monogame_skolspel.lib
 
         }
 
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)position.X, (int)position.Y, 60, 40);
+            }
+        }
+
         public override void Update()
         {
             

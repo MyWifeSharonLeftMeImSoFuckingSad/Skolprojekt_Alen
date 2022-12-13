@@ -17,7 +17,7 @@ namespace Monogame_skolspel.lib
 
         int step = 0;
         int delay = 0;
-        
+
         public player(Texture2D _graphics)
         {
             texture = _graphics;
@@ -28,6 +28,7 @@ namespace Monogame_skolspel.lib
             SpritePos.Add("normal1", new Rectangle(75, 11, 60, 50));
             SpritePos.Add("normal2", new Rectangle(140, 11, 60, 50));
             SpritePos.Add("normal3", new Rectangle(200, 11, 60, 50));
+
 
             SpritePos.Add("normalUp0", new Rectangle(10, 200, 60, 305));
             SpritePos.Add("normalUp1", new Rectangle(75, 200, 60, 305));
@@ -47,7 +48,13 @@ namespace Monogame_skolspel.lib
             SpritePos.Add("normalRight3", new Rectangle(200, 140, 63, 50));
         }
 
-        
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)position.X, (int)position.Y, 60, 50);
+            }
+        }
 
         public override void Update()
         {
@@ -93,7 +100,7 @@ namespace Monogame_skolspel.lib
             if (ks.IsKeyDown(Keys.W))
             {
                 position.Y -= _speed;
-
+              
                 if (delay == 0)
                 {
 
@@ -114,24 +121,24 @@ namespace Monogame_skolspel.lib
                 delay--;
             }
 
-            if(position.X <= 0)
+            if(position.X <= 100)
             {
-                position.X = 0;
+                position.X = 100;
             }
 
-            if (position.X >= 800 - 45)
+            if (position.X >= 1180 - 45)
             {
-                position.X = 800 - 45;
+                position.X = 1180 - 45;
             }
 
-            if (position.Y >= 500 - 45)
+            if (position.Y >= 700 - 45)
             {
-                position.Y = 500 - 50;
+                position.Y = 700 - 50;
             }
 
-            if (position.Y <= 0)
+            if (position.Y <= 100)
             {
-                position.Y = 0;
+                position.Y = 100;
             }
 
             //screen-jail
@@ -147,6 +154,15 @@ namespace Monogame_skolspel.lib
         {
             //spritebatch.Begin();
             var ks = Keyboard.GetState();
+
+            //if (ks.IsKeyDown(Keys.W))
+            //{
+            //    spritebatch.Draw(texture, position, SpritePos["normalUp" + step], Color.Blue);
+            //}
+            //else
+            //{
+            //    spritebatch.Draw(texture, position, SpritePos["normal0" + step], Color.White);
+            //}
 
             if (ks.IsKeyDown(Keys.W))
             {
