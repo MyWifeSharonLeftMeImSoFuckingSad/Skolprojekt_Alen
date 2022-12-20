@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Monogame_skolspel.lib;
@@ -24,6 +25,8 @@ namespace Monogame_skolspel
         sprite enemy;
         private Texture2D _enemy;
         bool isPLaying = false;
+        sprite bullet;
+        private Texture2D _bullet;
 
         private Rectangle Start;
         private Rectangle Start2;
@@ -40,6 +43,10 @@ namespace Monogame_skolspel
 
         player s;
         enemy e;
+        bullet b;
+
+        int bullet_delay = 1000;
+        int bullet_time;
 
 
         //int Speed = 5;
@@ -47,6 +54,7 @@ namespace Monogame_skolspel
 
 
         List<sprite> _sprites { get; set; } = new List<sprite>();
+        List<sprite_bullet> _sprites2 { get; set; } = new List<sprite_bullet>();
 
         public Game1()
         {
@@ -76,20 +84,22 @@ namespace Monogame_skolspel
 
             //Start = new Rectangle(10, 11, 35, 105);
             //Start2 = new Rectangle(10, 11, 35, 105);
-            //Start_color = new Texture2D(GraphicsDevice, 1, 1);
-            //Start_color.SetData(new Color[] { Color.DarkGray });
+            Start_color = new Texture2D(GraphicsDevice, 1, 1);
+            Start_color.SetData(new Color[] { Color.DarkGray });
 
             life_red = new Rectangle(50, 11, 400, 25);
             Healht_green = Content.Load<Texture2D>("health_green");
 
             _player = Content.Load<Texture2D>("playerSheet");
             _enemy = Content.Load<Texture2D>("slime_enemy");
+            _bullet = Content.Load<Texture2D>("bullet");
            
             s = new player(_player, GraphicsDevice);
             _sprites.Add(s);
 
             e = new enemy(_enemy);
             _sprites.Add(e);
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -98,15 +108,46 @@ namespace Monogame_skolspel
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            bullet_time -= gameTime.ElapsedGameTime.Milliseconds;
+            if (bullet_time < 0)
+            {
+                bullet_time = 0;
+            }
             // TODO: Add your update logic here
             _sprites.ForEach(e => e.Update());
+            
             life_green = new Rectangle(50, 11, Health, 25);
             if (s.Rectangle.Intersects(e.Rectangle)){
                 count++;
                 Health -= 1;
             }
-           //((int)gameTime.TotalGameTime.TotalSeconds).ToString()
+            var ks = Keyboard.GetState();
+
+            if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
+            {
+                bullet_time = bullet_delay;
+                //b = new bullet(_bullet);
+                _sprites2.Add(new bullet(this){
+                    
+                    position_b = new Vector2(s.position.X + 20, s.position.Y)
+
+                });
+            }
+
+            
+            //else
+            //{
+            //    bullet_time = 0;
+            //}
+
+
+            foreach (sprite_bullet bullet in _sprites2)
+            {
+                bullet.position_b.X += 20;
+            }
+
+            _sprites2.ForEach(e => e.Update());
+
 
             base.Update(gameTime);
         }
@@ -124,6 +165,7 @@ namespace Monogame_skolspel
             //_spriteBatch.Draw(Start_color, Start, Color.White);
             //_spriteBatch.Draw(Start_color, mouseRect, Color.Black);
             _sprites.ForEach(e => e.Draw(_spriteBatch));
+            _sprites2.ForEach(e => e.Draw(_spriteBatch));
             _spriteBatch.Draw(Start_color, life_red, Color.Red);
             _spriteBatch.Draw(Healht_green, life_green, Color.White);
 
