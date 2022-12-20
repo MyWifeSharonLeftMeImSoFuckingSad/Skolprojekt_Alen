@@ -14,6 +14,13 @@ namespace Monogame_skolspel.lib
         //public Texture2D textureRight { get; set; }
         public Vector2 position;
         public Vector2 position2;
+
+      
+
+        int Speed_X;
+        int Speed_Y;
+
+        public int Health;
         public virtual Color Color { get; set; } = Color.White;
         public int _speed { get; set;  } = 5;
 

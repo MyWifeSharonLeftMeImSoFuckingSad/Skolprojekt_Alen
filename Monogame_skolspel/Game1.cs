@@ -18,20 +18,29 @@ namespace Monogame_skolspel
 
         private Texture2D background_1;
         private Texture2D background_2;
+
         sprite player;
         private Texture2D _player;
         sprite enemy;
         private Texture2D _enemy;
         bool isPLaying = false;
+
         private Rectangle Start;
         private Rectangle Start2;
         private Texture2D Start_color;
         private Vector2 position = new Vector2(10, 20);
+
         private int count = 0;
         private SpriteFont counter;
 
+        private Rectangle life_red;
+        private Rectangle life_green;
+        private Texture2D Healht_green;
+        int Health = 400;
+
         player s;
         enemy e;
+
 
         //int Speed = 5;
         //private Vector2 position = new Vector2(200, 300);
@@ -65,15 +74,18 @@ namespace Monogame_skolspel
             background_2 = Content.Load<Texture2D>("bg_2_final");
             counter = Content.Load<SpriteFont>("font");
 
-            Start = new Rectangle(10, 11, 35, 105);
-            Start2 = new Rectangle(10, 11, 35, 105);
-            Start_color = new Texture2D(GraphicsDevice, 1, 1);
-            Start_color.SetData(new Color[] { Color.DarkGray });
-      
+            //Start = new Rectangle(10, 11, 35, 105);
+            //Start2 = new Rectangle(10, 11, 35, 105);
+            //Start_color = new Texture2D(GraphicsDevice, 1, 1);
+            //Start_color.SetData(new Color[] { Color.DarkGray });
+
+            life_red = new Rectangle(50, 11, 400, 25);
+            Healht_green = Content.Load<Texture2D>("health_green");
+
             _player = Content.Load<Texture2D>("playerSheet");
             _enemy = Content.Load<Texture2D>("slime_enemy");
            
-            s = new player(_player);
+            s = new player(_player, GraphicsDevice);
             _sprites.Add(s);
 
             e = new enemy(_enemy);
@@ -89,28 +101,31 @@ namespace Monogame_skolspel
 
             // TODO: Add your update logic here
             _sprites.ForEach(e => e.Update());
-
+            life_green = new Rectangle(50, 11, Health, 25);
             if (s.Rectangle.Intersects(e.Rectangle)){
                 count++;
-                
+                Health -= 1;
             }
            //((int)gameTime.TotalGameTime.TotalSeconds).ToString()
 
             base.Update(gameTime);
         }
 
+     
+
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             _spriteBatch.Draw(background_1, Vector2.Zero, Color.White);
             _spriteBatch.Draw(background_2, Vector2.Zero, Color.White);
             _spriteBatch.DrawString(counter, count.ToString(),
-              position, Color.Black);
+             position, Color.WhiteSmoke);
             //_spriteBatch.Draw(Start_color, Start, Color.White);
             //_spriteBatch.Draw(Start_color, mouseRect, Color.Black);
             _sprites.ForEach(e => e.Draw(_spriteBatch));
-            
+            _spriteBatch.Draw(Start_color, life_red, Color.Red);
+            _spriteBatch.Draw(Healht_green, life_green, Color.White);
 
             /*var kb = Keyboard.GetState();
 
