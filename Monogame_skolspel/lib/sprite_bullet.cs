@@ -15,13 +15,12 @@ namespace Monogame_skolspel.lib
 
         public sprite_bullet(Game _game) { game = _game; }
         public Texture2D texture { get; set; }
-            //public Texture2D textureRight { get; set; }
-            public Vector2 position_b = new Vector2(0,0);
+        public Vector2 position_b;
+        public virtual Color Color { get; set; } = Color.White;
+        public int _speed { get; set; } = 5;
+        public bool IsActive { get; set; } = true;
 
-            public virtual Color Color { get; set; } = Color.White;
-            public int _speed { get; set; } = 5;
-
-            public virtual void Draw(SpriteBatch spritebatch)
+        public virtual void Draw(SpriteBatch spritebatch)
             {
                 spritebatch.Draw(texture, position_b, Color);
             }

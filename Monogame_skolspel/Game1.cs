@@ -94,6 +94,7 @@ namespace Monogame_skolspel
             _enemy = Content.Load<Texture2D>("slime_enemy");
             _bullet = Content.Load<Texture2D>("bullet");
            
+            //skapar spelare
             s = new player(_player, GraphicsDevice);
             _sprites.Add(s);
 
@@ -108,45 +109,85 @@ namespace Monogame_skolspel
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            //skapar en loop/timer för skoten så man kan ha delay 
             bullet_time -= gameTime.ElapsedGameTime.Milliseconds;
             if (bullet_time < 0)
             {
                 bullet_time = 0;
             }
-            // TODO: Add your update logic here
+            
+            //uppdaterar varje objekt i _sprites listan
             _sprites.ForEach(e => e.Update());
             
+            //om spelarens rectangle nuddar en fiendes rectangle så sker detta
             life_green = new Rectangle(50, 11, Health, 25);
             if (s.Rectangle.Intersects(e.Rectangle)){
                 count++;
                 Health -= 1;
             }
+
             var ks = Keyboard.GetState();
 
-            if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
+            //om man håller ner D och space så skapas ett skott, bullet_time måste också vara 0
+            //för att detta ska ske. Efter skottet blir bullet_time = 1000 och börjar räkna ner
+            //för att man ska kunna skjuta igen (alltså en delay på skotten)
+            if (/*ks.IsKeyDown(Keys.D) &&*/ ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {
                 bullet_time = bullet_delay;
-                //b = new bullet(_bullet);
                 _sprites2.Add(new bullet(this){
                     
-                    position_b = new Vector2(s.position.X + 20, s.position.Y)
+                    position_b = new Vector2(s.position.X - 180, s.position.Y - 245)
+
+                });
+            }
+            else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
+            {
+                bullet_time = bullet_delay;
+                _sprites2.Add(new bullet(this)
+                {
+
+                    position_b = new Vector2(s.position.X - 200, s.position.Y - 245)
+
+                });
+            }
+            else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
+            {
+                bullet_time = bullet_delay;
+                _sprites2.Add(new bullet(this)
+                {
+
+                    position_b = new Vector2(s.position.X - 200, s.position.Y - 245)
 
                 });
             }
 
-            
+
             //else
             //{
             //    bullet_time = 0;
             //}
 
-
+            //kod för att varje skott ska åka åt ett visst håll.
             foreach (sprite_bullet bullet in _sprites2)
             {
-                bullet.position_b.X += 20;
+                bullet.Update();
+                //bullet.position_b.X += 20;
+
+                //if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space))
+                //{
+                //    bullet.position_b.X += 20;
+                //}
+                //else if(ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space))
+                //{
+                //    bullet.position_b.X -= 20;
+                //}
+
             }
 
-            _sprites2.ForEach(e => e.Update());
+            //uppdatera varje objekt i lisan _sprites2
+            //_sprites2.ForEach(e => e.Update());
+            _sprites2.RemoveAll(e => !e.IsActive);
 
 
             base.Update(gameTime);
