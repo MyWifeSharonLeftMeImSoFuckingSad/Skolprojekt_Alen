@@ -17,18 +17,12 @@ namespace Monogame_skolspel.lib
 
         int step = 0;
         int delay = 0;
-        
-        //private Rectangle Health_red;
-      
-        //private Texture2D Health_texture;
-        
+
         public player(Texture2D _graphics, GraphicsDevice graphics)
         {
             texture = _graphics;
             position = new Vector2(200, 300);
-           
-            //Health = 400;
-
+ 
             SpritePos.Add("normal0", new Rectangle(10, 11, 60, 50));
             SpritePos.Add("normal1", new Rectangle(75, 11, 60, 50));
             SpritePos.Add("normal2", new Rectangle(140, 11, 60, 50));
@@ -51,10 +45,6 @@ namespace Monogame_skolspel.lib
             SpritePos.Add("normalRight1", new Rectangle(75, 140, 60, 50));
             SpritePos.Add("normalRight2", new Rectangle(140, 140, 60, 50));
             SpritePos.Add("normalRight3", new Rectangle(200, 140, 63, 50));
-
-            //Health_red = new Rectangle(50, 11, 400, 25);
-            //Health_green = new Rectangle(50, 11, Health, 25);
-            
         }
 
         public Rectangle Rectangle

@@ -3,22 +3,26 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Monogame_skolspel.lib
 {
+   
     public class bullet : sprite_bullet
     {
         int direction;
         int bullet_delay = 1000;
         int bullet_time;
+      
         public bullet(Game game) : base(game)
         {
-            position_b = new Vector2(0, 0);
-            _speed = 0;
+            position_b = new Vector2(300, 300);
+
             var ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.D))
             {
@@ -39,7 +43,6 @@ namespace Monogame_skolspel.lib
 
         }
 
- 
         public Rectangle Rectangle
         {
             get
@@ -78,24 +81,22 @@ namespace Monogame_skolspel.lib
                 direction = 4;
             }
 
-            if (direction == 1)
-            {
-                position_b.X += 15;
-            }
-            else if(direction == 2)
-            {
-                position_b.X -= 15;
-            }
-            else if (direction == 3)
-            {
-                position_b.Y -= 15;
-            }
-            else if (direction == 4)
-            {
-                position_b.Y += 15;
-            }
-
-           
+            //if (direction == 1)
+            //{
+            //    position_b.X += 15;
+            //}
+            //else if(direction == 2)
+            //{
+            //    position_b.X -= 15;
+            //}
+            //else if (direction == 3)
+            //{
+            //    position_b.Y -= 15;
+            //}
+            //else if (direction == 4)
+            //{
+            //    position_b.Y += 15;
+            //}
 
             if (position_b.X <= -200) this.IsActive = false;
             if (position_b.X >= 935) this.IsActive = false;
@@ -105,7 +106,7 @@ namespace Monogame_skolspel.lib
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, position_b, Color.White);
+            spritebatch.Draw(texture, position_b, Color);
           
         }
     }

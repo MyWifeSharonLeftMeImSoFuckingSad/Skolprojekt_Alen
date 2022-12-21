@@ -25,9 +25,7 @@ namespace Monogame_skolspel.lib
                 spritebatch.Draw(texture, position_b, Color);
             }
 
-
-
-            public abstract void Update();
+        public abstract void Update();
 
         }
 
