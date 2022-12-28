@@ -19,10 +19,43 @@ namespace Monogame_skolspel.lib
         public virtual Color Color { get; set; } = Color.White;
         public int _speed { get; set; } = 5;
         public bool IsActive { get; set; } = true;
+        public Rectangle bullRect;
+
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 21, 9);
+            }
+        } 
+        
+        public Rectangle RectangleUp
+        {
+            get
+            {
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 21, 9);
+            }
+        }
+
+        public Rectangle RectangleDown
+        {
+            get
+            {
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 11, 22);
+            }
+        }
+
+        public Rectangle RectangleRight
+        {
+            get
+            {
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 21, 9);
+            }
+        }
 
         public virtual void Draw(SpriteBatch spritebatch)
             {
-                spritebatch.Draw(texture, position_b, Color);
+                spritebatch.Draw(texture,position_b ,bullRect, Color);
             }
 
         public abstract void Update();

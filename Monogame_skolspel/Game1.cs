@@ -25,8 +25,11 @@ namespace Monogame_skolspel
         sprite enemy;
         private Texture2D _enemy;
         bool isPLaying = false;
-        sprite bullet;
+        sprite_bullet bullet;
         private Texture2D _bullet;
+
+        sprite_bullet bulletTest;
+        private Texture2D _bulletTest;
 
         private Rectangle Start;
         private Rectangle Start2;
@@ -43,7 +46,8 @@ namespace Monogame_skolspel
 
         player s;
         enemy e;
-        bullet b;
+        //bullet bullet;
+        //bulletTest b;
 
         int bullet_delay = 1000;
         int bullet_time;
@@ -92,7 +96,9 @@ namespace Monogame_skolspel
 
             _player = Content.Load<Texture2D>("playerSheet");
             _enemy = Content.Load<Texture2D>("slime_enemy");
-            _bullet = Content.Load<Texture2D>("bullet-tiny");
+            //_bullet = Content.Load<Texture2D>("bullet-tiny");
+
+            _bulletTest = Content.Load<Texture2D>("bullet-tiny-sheet-color");
            
             //skapar spelare
             s = new player(_player, GraphicsDevice);
@@ -141,15 +147,17 @@ namespace Monogame_skolspel
             //om man håller ner D och space så skapas ett skott, bullet_time måste också vara 0
             //för att detta ska ske. Efter skottet blir bullet_time = 1000 och börjar räkna ner
             //för att man ska kunna skjuta igen (alltså en delay på skotten)
+
             if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {
                 bullet_time = bullet_delay;
                 _sprites2.Add(new bullet(this)
                 {
 
-                    position_b = new Vector2(s.position.X - 180, s.position.Y - 245)
+                    position_b = new Vector2(s.position.X + 20, s.position.Y + 20)
 
                 });
+
             }
             else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {
@@ -157,7 +165,7 @@ namespace Monogame_skolspel
                 _sprites2.Add(new bullet(this)
                 {
 
-                    position_b = new Vector2(s.position.X - 240, s.position.Y - 245)
+                    position_b = new Vector2(s.position.X /*- 240*/, s.position.Y /*- 245*/)
 
                 });
             }
@@ -167,7 +175,7 @@ namespace Monogame_skolspel
                 _sprites2.Add(new bullet(this)
                 {
 
-                    position_b = new Vector2(s.position.X - 213, s.position.Y - 275)
+                    position_b = new Vector2(s.position.X /*- 213*/, s.position.Y /*- 275*/)
 
                 });
             }
@@ -177,14 +185,33 @@ namespace Monogame_skolspel
                 _sprites2.Add(new bullet(this)
                 {
 
-                    position_b = new Vector2(s.position.X - 213, s.position.Y - 255)
+                    position_b = new Vector2(s.position.X /*- 213*/, s.position.Y /*- 255*/)
 
                 });
             }
 
+
+
             //kod för att varje skott ska åka åt ett visst håll.
             foreach (sprite_bullet bullet in _sprites2)
             {
+                ks = Keyboard.GetState();
+                if (ks.IsKeyDown(Keys.D))
+                {
+                    if (bullet.Rectangle.Intersects(s.Rectangle))
+                    {
+                        count++;
+                    }
+                }
+                else if (ks.IsKeyDown(Keys.S))
+                {
+                    if (bullet.RectangleDown.Intersects(s.Rectangle))
+                    {
+                        count++;
+                    }
+                }
+
+
                 bullet.Update();
             }
 

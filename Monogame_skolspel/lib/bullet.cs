@@ -15,41 +15,42 @@ namespace Monogame_skolspel.lib
    
     public class bullet : sprite_bullet
     {
+        Dictionary<string, Rectangle> SpritePos = new Dictionary<string, Rectangle>();
         int direction;
         int bullet_delay = 1000;
         int bullet_time;
       
         public bullet(Game game) : base(game)
         {
+            texture = game.Content.Load<Texture2D>("bullet-tiny-sheet");
+            SpritePos.Add("left", new Rectangle(262, 262, 21, 9));
+            SpritePos.Add("right", new Rectangle(360, 263, 21, 9));
+            SpritePos.Add("up", new Rectangle(425, 250, 11, 22));
+            SpritePos.Add("down", new Rectangle(313, 250, 11, 22));
+
             position_b = new Vector2(300, 300);
 
             var ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.D))
             {
-                texture = game.Content.Load<Texture2D>("bullet-tiny");
+                bullRect = SpritePos["left"];
             }
             else if (ks.IsKeyDown(Keys.A))
             {
-                texture = game.Content.Load<Texture2D>("bullet-tiny-left");
+                bullRect = SpritePos["right"];
             }
             else if (ks.IsKeyDown(Keys.W))
             {
-                texture = game.Content.Load<Texture2D>("bullet-tiny-up");
+                bullRect = SpritePos["up"];
             }
             else if (ks.IsKeyDown(Keys.S))
             {
-                texture = game.Content.Load<Texture2D>("bullet-tiny-down");
+                bullRect = SpritePos["down"];
             }
 
         }
 
-        public Rectangle Rectangle
-        {
-            get
-            {
-                return new Rectangle((int)position_b.X, (int)position_b.Y, 60, 50);
-            }
-        }
+
 
         public override void Update()
         {
@@ -60,10 +61,18 @@ namespace Monogame_skolspel.lib
             }
 
             var ks = Keyboard.GetState();
+
+            //if (ks.IsKeyDown(Keys.D))
+            //{
+            //    bullRect = SpritePos["left"];
+            //}
+
             if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {
                 bullet_time = bullet_delay;
-                direction = 1;          
+                direction = 1;
+                
+                
             }
             else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {
@@ -85,7 +94,7 @@ namespace Monogame_skolspel.lib
             //{
             //    position_b.X += 15;
             //}
-            //else if(direction == 2)
+            //else if (direction == 2)
             //{
             //    position_b.X -= 15;
             //}
@@ -98,16 +107,18 @@ namespace Monogame_skolspel.lib
             //    position_b.Y += 15;
             //}
 
-            if (position_b.X <= -200) this.IsActive = false;
-            if (position_b.X >= 935) this.IsActive = false;
-            if (position_b.Y <= -200) this.IsActive = false;
+            if (position_b.X <= 100) this.IsActive = false;
+            if (position_b.X >= 1135) this.IsActive = false;
+            if (position_b.Y <= 70) this.IsActive = false;
+            if (position_b.Y >= 680) this.IsActive = false;
+        
+
 
         }
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, position_b, Color);
-          
+            spritebatch.Draw(texture, position_b, bullRect, Color);
         }
     }
 }

@@ -16,13 +16,10 @@ namespace Monogame_skolspel.lib
         //public Texture2D textureRight { get; set; }
         public Vector2 position;
         public Vector2 position2;
-
         public int Health;
-
-
-
         public virtual Color Color { get; set; } = Color.White;
         public int _speed { get; set;  } = 5;
+        public bool IsActive { get; set; } = true;
 
         public virtual void Draw(SpriteBatch spritebatch)
         {
