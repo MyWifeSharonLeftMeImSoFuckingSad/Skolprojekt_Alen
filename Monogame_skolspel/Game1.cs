@@ -405,7 +405,7 @@ namespace Monogame_skolspel
                     _sprites2.Add(new bullet(this)
                     {
 
-                        position_b = new Vector2(s.position_b.X /*- 240*/, s.position_b.Y /*- 245*/)
+                        position_b = new Vector2(s.position_b.X  - 20 /*- 240*/, s.position_b.Y + 20 /*- 245*/)
 
                     });
                 }
@@ -415,7 +415,7 @@ namespace Monogame_skolspel
                     _sprites2.Add(new bullet(this)
                     {
 
-                        position_b = new Vector2(s.position_b.X /*- 213*/, s.position_b.Y /*- 275*/)
+                        position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 275*/)
 
                     });
                 }
@@ -425,7 +425,7 @@ namespace Monogame_skolspel
                     _sprites2.Add(new bullet(this)
                     {
 
-                        position_b = new Vector2(s.position_b.X /*- 213*/, s.position_b.Y /*- 255*/)
+                        position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 255*/)
 
                     });
                 }
