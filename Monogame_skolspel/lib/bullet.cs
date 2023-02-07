@@ -62,10 +62,7 @@ namespace Monogame_skolspel.lib
 
             var ks = Keyboard.GetState();
 
-            //if (ks.IsKeyDown(Keys.D))
-            //{
-            //    bullRect = SpritePos["left"];
-            //}
+          
 
             if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {
@@ -90,22 +87,22 @@ namespace Monogame_skolspel.lib
                 direction = 4;
             }
 
-            //if (direction == 1)
-            //{
-            //    position_b.X += 15;
-            //}
-            //else if (direction == 2)
-            //{
-            //    position_b.X -= 15;
-            //}
-            //else if (direction == 3)
-            //{
-            //    position_b.Y -= 15;
-            //}
-            //else if (direction == 4)
-            //{
-            //    position_b.Y += 15;
-            //}
+            if (direction == 1)
+            {
+                position_b.X += 15;
+            }
+            else if (direction == 2)
+            {
+                position_b.X -= 15;
+            }
+            else if (direction == 3)
+            {
+                position_b.Y -= 15;
+            }
+            else if (direction == 4)
+            {
+                position_b.Y += 15;
+            }
 
             if (position_b.X <= 100) this.IsActive = false;
             if (position_b.X >= 1135) this.IsActive = false;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Monogame_skolspel.lib
 {
-    public class player : sprite
+    public class player : sprite_bullet
     {
 
         Dictionary<string, Rectangle> SpritePos = new Dictionary<string, Rectangle>();
@@ -18,10 +18,11 @@ namespace Monogame_skolspel.lib
         int step = 0;
         int delay = 0;
 
-        public player(Texture2D _graphics, GraphicsDevice graphics)
+        public player(Game game) : base(game)
         {
-            texture = _graphics;
-            position = new Vector2(200, 300);
+            texture = game.Content.Load<Texture2D>("playerSheet");
+            position_b = new Vector2(200, 300);
+            //origin = new Vector2(texture.Width / 2, texture.Height / 2);
  
             SpritePos.Add("normal0", new Rectangle(10, 11, 60, 50));
             SpritePos.Add("normal1", new Rectangle(75, 11, 60, 50));
@@ -51,7 +52,7 @@ namespace Monogame_skolspel.lib
         {
             get
             {
-                return new Rectangle((int)position.X, (int)position.Y, 60, 50);
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 60, 50);
             }
         }
 
@@ -75,9 +76,9 @@ namespace Monogame_skolspel.lib
 
             if (ks.IsKeyDown(Keys.A))
             {
-                position.X -= _speed;
+                position_b.X -= _speed;
 
-                if (delay == 0)
+                          if (delay == 0)
                 {
                    
                     step += 1;
@@ -88,7 +89,7 @@ namespace Monogame_skolspel.lib
             
             if (ks.IsKeyDown(Keys.D))
             {
-                position.X += _speed;
+                position_b.X += _speed;
 
                 if (delay == 0)
                 {
@@ -101,7 +102,7 @@ namespace Monogame_skolspel.lib
 
             if (ks.IsKeyDown(Keys.W))
             {
-                position.Y -= _speed;
+                position_b.Y -= _speed;
               
                 if (delay == 0)
                 {
@@ -113,7 +114,7 @@ namespace Monogame_skolspel.lib
 
             if (ks.IsKeyDown(Keys.S))
             {
-                position.Y += _speed;
+                position_b.Y += _speed;
 
                 if (delay == 0)
                 {
@@ -123,24 +124,24 @@ namespace Monogame_skolspel.lib
                 delay--;
             }
 
-            if(position.X <= 100)
+            if(position_b.X <= 100)
             {
-                position.X = 100;
+                position_b.X = 100;
             }
 
-            if (position.X >= 1180 - 45)
+            if (position_b.X >= 1180 - 45)
             {
-                position.X = 1180 - 45;
+                position_b.X = 1180 - 45;
             }
 
-            if (position.Y >= 700 - 45)
+            if (position_b.Y >= 700 - 45)
             {
-                position.Y = 700 - 50;
+                position_b.Y = 700 - 50;
             }
 
-            if (position.Y <= 100)
+            if (position_b.Y <= 100)
             {
-                position.Y = 100;
+                position_b.Y = 100;
             }
 
             //screen-jail
@@ -170,19 +171,19 @@ namespace Monogame_skolspel.lib
 
             if (ks.IsKeyDown(Keys.W))
             {
-                spritebatch.Draw(texture, position, SpritePos["normalUp" + step], Color.White);
+                spritebatch.Draw(texture, position_b, SpritePos["normalUp" + step], Color.White);
             }
             else if (ks.IsKeyDown(Keys.A))
             {
-                spritebatch.Draw(texture, position, SpritePos["normalLeft" + step], Color.White);
+                spritebatch.Draw(texture, position_b, SpritePos["normalLeft" + step], Color.White);
             }
             else if (ks.IsKeyDown(Keys.D))
             {
-                spritebatch.Draw(texture, position, SpritePos["normalRight" + step], Color.White);
+                spritebatch.Draw(texture, position_b, SpritePos["normalRight" + step], Color.White);
             }
             else
             {
-                spritebatch.Draw(texture, position, SpritePos["normal" + step], Color.White);
+                spritebatch.Draw(texture, position_b, SpritePos["normal" + step], Color.White);
             }
 
 

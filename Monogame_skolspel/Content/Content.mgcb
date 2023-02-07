@@ -253,6 +253,18 @@
 /processorParam:TextureFormat=Color
 /build:health_green.png
 
+#begin healthbar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:healthbar.png
+
 #begin leftplayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -276,6 +288,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:main-menu-background.jpg
+
+#begin main-menu-bg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:main-menu-bg.png
 
 #begin normalPlayer.png
 /importer:TextureImporter
@@ -348,6 +372,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:space_bg.png
+
+#begin UI-healthbar-scorebar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI-healthbar-scorebar.png
 
 #begin video.mp4
 /importer:H264Importer
