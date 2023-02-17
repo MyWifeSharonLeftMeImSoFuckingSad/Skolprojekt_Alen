@@ -24,6 +24,8 @@ namespace Monogame_skolspel.lib
         public Rectangle bullRect;
         public double step = 0;
         public double delay = 0;
+
+        
         public Rectangle Rectangle
         {
             get

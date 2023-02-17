@@ -50,6 +50,15 @@ namespace Monogame_skolspel.lib
 
         }
 
+        public Rectangle test
+        {
+            get
+            {
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 21, 9);
+            }
+        }
+
+
 
 
         public override void Update()
@@ -62,6 +71,10 @@ namespace Monogame_skolspel.lib
 
             var ks = Keyboard.GetState();
 
+            if(bullRect == SpritePos["left"])
+            {
+                
+            }
           
 
             if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)

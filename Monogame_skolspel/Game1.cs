@@ -10,6 +10,7 @@ using System.Numerics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Media;
 using DocumentFormat.OpenXml.Office2013.Word.Drawing;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 
 namespace Monogame_skolspel
@@ -54,7 +55,8 @@ namespace Monogame_skolspel
         private Rectangle life_red;
         private Rectangle life_green;
         private Texture2D Healht_green;
-        int Health = 400;
+        int Health = 1310;
+        double Health_pos_x = -3;
 
         private Texture2D buttText;
         private Texture2D buttTextHov;
@@ -68,6 +70,8 @@ namespace Monogame_skolspel
         private Texture2D UI_bar;
 
         private Rectangle mouseRect;
+
+        int direction = 0;
 
         private Texture2D main_menu;
 
@@ -201,11 +205,23 @@ namespace Monogame_skolspel
                 button.Update(gameTime);
             }
 
+            
+
             //if (ActiveState == GameState.InGame) 
             //{ 
 
+            
+
             if (ActiveState == GameState.InGame)
             {
+                //count++;
+
+                var ks = Keyboard.GetState();
+                if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
+                {
+                    direction = 1;
+                }
+
                 BombTime -= gameTime.ElapsedGameTime.Milliseconds;
                 if (BombTime < 0)
                 {
@@ -266,11 +282,18 @@ namespace Monogame_skolspel
                     }
                     enemy.delay++;
 
-
+                    if (s.Rectangle.Intersects(enemy.RectangleEnemy))
+                    {
+                        Health -= 10;
+                        Health_pos_x += 1;
+                    }
                 }
 
-
-
+                if(Health == 0)
+                {
+                    ActiveState = GameState.MainMenu;
+                }
+             
                 if (BombTime == 0)
                 {
                     int x = rnd.Next(0, GraphicsDevice.Viewport.Width - 60);
@@ -382,7 +405,7 @@ namespace Monogame_skolspel
                 //}
 
 
-                var ks = Keyboard.GetState();
+                //var ks = Keyboard.GetState();
 
                 //om man håller ner D och space så skapas ett skott, bullet_time måste också vara 0
                 //för att detta ska ske. Efter skottet blir bullet_time = 1000 och börjar räkna ner
@@ -431,18 +454,21 @@ namespace Monogame_skolspel
                 }
 
 
-
-                //kod för att varje skott ska åka åt ett visst håll.
-                foreach (sprite_bullet bullet in _sprites2)
+                if(direction == 1)
                 {
-                    ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.D))
+                    foreach (sprite_bullet enemy in _enemyList)
                     {
-                        if (bullet.Rectangle.Intersects(s.Rectangle))
+                        if (enemy.RectangleEnemy.Intersects(bullet.Rectangle))
                         {
                             count++;
                         }
                     }
+                }
+
+                //kod för att varje skott ska åka åt ett visst håll.
+                foreach (sprite_bullet bullet in _sprites2)
+                {
+                   
                     //else if (ks.IsKeyDown(Keys.S))
                     //{
                     //    if (bullet.RectangleDown.Intersects(s.Rectangle))
@@ -494,14 +520,13 @@ namespace Monogame_skolspel
             {
                 _spriteBatch.Draw(background_1, Vector2.Zero, Color.White);
                 _spriteBatch.Draw(background_2, Vector2.Zero, Color.White);
-                _spriteBatch.DrawString(counter, count.ToString(),
-                 position, Color.WhiteSmoke);
                 _sprites.ForEach(e => e.Draw(_spriteBatch));
                 _sprites2.ForEach(e => e.Draw(_spriteBatch));
                 _enemyList.ForEach(e => e.Draw(_spriteBatch));
                 //_spriteBatch.Draw(Start_color, life_red, Color.Red);
                 _spriteBatch.Draw(UI_bar, new Vector2(0, 0), Color.White);
-                _spriteBatch.Draw(Healht_green, new Rectangle(0, 300, 700, 300), Color.White);
+                _spriteBatch.Draw(Healht_green, new Rectangle((int)Health_pos_x, -5, Health, 900), Color.White);
+                _spriteBatch.DrawString(counter, count.ToString(), new Vector2(155, 85), Color.WhiteSmoke);
             }
             else if (ActiveState == GameState.MainMenu)
             {
