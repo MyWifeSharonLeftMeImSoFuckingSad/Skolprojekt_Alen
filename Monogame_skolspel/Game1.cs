@@ -95,9 +95,9 @@ namespace Monogame_skolspel
         double step = 0;
         double delay = 0;
 
-        List<sprite> _sprites { get; set; } = new List<sprite>();
+        List<sprite_bullet> _sprites { get; set; } = new List<sprite_bullet>();
         List<sprite_bullet> _enemyList { get; set; } = new List<sprite_bullet>();
-        List<sprite_bullet> _sprites2 { get; set; } = new List<sprite_bullet>();
+        List<sprite_bullet> _bulletList { get; set; } = new List<sprite_bullet>();
 
         public Game1()
         {
@@ -154,7 +154,7 @@ namespace Monogame_skolspel
 
             //skapar spelare
             s = new player(this);
-            _sprites2.Add(s);
+            _sprites.Add(s);
 
             //e = new enemy(this);
             //_enemyList.Add(e);
@@ -243,53 +243,67 @@ namespace Monogame_skolspel
                 }
 
 
-                foreach (sprite_bullet enemy in _enemyList)
+                foreach (enemy e in _enemyList)
                 {
-                    if (s.position_b.X > enemy.position_b.X)
+                    if (s.position_b.X > e.position_b.X)
                     {
-                        enemy.position_b.X += 2;
+                        e.position_b.X += 2;
                     }
-                    else if (s.position_b.X < enemy.position_b.X)
+                    else if (s.position_b.X < e.position_b.X)
                     {
-                        enemy.position_b.X -= 2;
+                        e.position_b.X -= 2;
                     }
 
-                    if (s.position_b.Y > enemy.position_b.Y)
+                    if (s.position_b.Y > e.position_b.Y)
                     {
-                        enemy.position_b.Y += 2;
+                        e.position_b.Y += 2;
                     }
-                    else if (s.position_b.Y < enemy.position_b.Y)
+                    else if (s.position_b.Y < e.position_b.Y)
                     {
-                        enemy.position_b.Y -= 2;
+                        e.position_b.Y -= 2;
                     }
                     _enemyList.ForEach(e => e.Update());
 
 
-                    if (enemy.step == 3)
+                    if (e.step == 3)
                     {
-                        enemy.step = 0;
+                        e.step = 0;
                     }
 
-                    if (enemy.delay > 15)
+                    if (e.delay > 15)
                     {
-                        enemy.delay = 0;
+                        e.delay = 0;
                     }
 
-                    if (enemy.delay == 0)
+                    if (e.delay == 0)
                     {
 
-                        enemy.step += 1;
+                        e.step += 1;
                     }
-                    enemy.delay++;
+                    e.delay++;
 
-                    if (s.Rectangle.Intersects(enemy.RectangleEnemy))
+                    if (s.Rectangle.Intersects(e.RectangleEnemy))
                     {
                         Health -= 10;
                         Health_pos_x += 1;
                     }
-                }
 
-                if(Health == 0)
+                    foreach (bullet b in _bulletList)
+                    {
+
+                        if (b.Rectangle.Intersects(e.RectangleEnemy))
+                        {
+                            count++;
+                            b.IsActive = false;
+                            e.IsActive = false;
+                        }
+                    }
+
+
+
+            }
+
+                if (Health == 0)
                 {
                     ActiveState = GameState.MainMenu;
                 }
@@ -306,7 +320,7 @@ namespace Monogame_skolspel
                     if (/*Rando == 1 &&*/ BombTime == 0)
                     {
                         //BombTime = Bomb_delay;
-                        //_sprites2.Add(new enemy(this
+                        //_bulletList.Add(new enemy(this
 
                         //}
                         //    //else if(Rando == 2)
@@ -372,7 +386,7 @@ namespace Monogame_skolspel
                         //}
 
 
-                        //_sprites2.ForEach(e => e.Update());
+                        //_bulletList.ForEach(e => e.Update());
 
 
 
@@ -380,6 +394,9 @@ namespace Monogame_skolspel
                     }
 
                 }
+
+             
+
                 //skapar en loop/timer för skoten så man kan ha delay 
                 bullet_time -= gameTime.ElapsedGameTime.Milliseconds;
                 if (bullet_time < 0)
@@ -414,7 +431,7 @@ namespace Monogame_skolspel
                 if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                 {
                     bullet_time = bullet_delay;
-                    _sprites2.Add(new bullet(this)
+                    _bulletList.Add(new bullet(this)
                     {
 
                         position_b = new Vector2(s.position_b.X + 20, s.position_b.Y + 20)
@@ -425,7 +442,7 @@ namespace Monogame_skolspel
                 else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                 {
                     bullet_time = bullet_delay;
-                    _sprites2.Add(new bullet(this)
+                    _bulletList.Add(new bullet(this)
                     {
 
                         position_b = new Vector2(s.position_b.X  - 20 /*- 240*/, s.position_b.Y + 20 /*- 245*/)
@@ -435,7 +452,7 @@ namespace Monogame_skolspel
                 else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                 {
                     bullet_time = bullet_delay;
-                    _sprites2.Add(new bullet(this)
+                    _bulletList.Add(new bullet(this)
                     {
 
                         position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 275*/)
@@ -445,7 +462,7 @@ namespace Monogame_skolspel
                 else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                 {
                     bullet_time = bullet_delay;
-                    _sprites2.Add(new bullet(this)
+                    _bulletList.Add(new bullet(this)
                     {
 
                         position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 255*/)
@@ -453,53 +470,34 @@ namespace Monogame_skolspel
                     });
                 }
 
+              
 
-                if(direction == 1)
-                {
-                    foreach (sprite_bullet enemy in _enemyList)
-                    {
-                        if (enemy.RectangleEnemy.Intersects(bullet.Rectangle))
-                        {
-                            count++;
-                        }
-                    }
-                }
+                //foreach (enemy e in _enemyList)
+                //{
+                //    if (enemy.RectangleEnemy.Intersects(bullet.Rectangle))
+                //    {
+                //        count++;
+                //    }
+                //}
+
+                //if(direction == 1)
+                //{
+                //    foreach (sprite_bullet enemy in _enemyList)
+                //    {
+                //        if (enemy.RectangleEnemy.Intersects(bullet.Rectangle))
+                //        {
+                //            count++;
+                //        }
+                //    }
+                //}
 
                 //kod för att varje skott ska åka åt ett visst håll.
-                foreach (sprite_bullet bullet in _sprites2)
-                {
-                   
-                    //else if (ks.IsKeyDown(Keys.S))
-                    //{
-                    //    if (bullet.RectangleDown.Intersects(s.Rectangle))
-                    //    {
-                    //        count++;
-                    //    }
-                    //}
 
 
-                    bullet.Update();
-
-                }
-
-                //uppdatera varje objekt i lisan _sprites2
-                //_sprites2.ForEach(e => e.Update());
-                _sprites2.RemoveAll(e => !e.IsActive);
-
-                //if (s.Rectangle.Intersects(e.Rectangle))
-                //{
-                //    e.position_b.X = 0;
-                //    e.position_b.Y = 0;
-                //    count++;
-                //}
-
-
-
-                //foreach (sprite_bullet enemy in _enemyList)
-                //{
-
-
-                //}
+                //uppdatera varje objekt i lisan _bulletList
+                _bulletList.ForEach(e => e.Update());
+                _bulletList.RemoveAll(e => !e.IsActive);
+                _enemyList.RemoveAll(e => !e.IsActive);
 
 
 
@@ -521,7 +519,7 @@ namespace Monogame_skolspel
                 _spriteBatch.Draw(background_1, Vector2.Zero, Color.White);
                 _spriteBatch.Draw(background_2, Vector2.Zero, Color.White);
                 _sprites.ForEach(e => e.Draw(_spriteBatch));
-                _sprites2.ForEach(e => e.Draw(_spriteBatch));
+                _bulletList.ForEach(e => e.Draw(_spriteBatch));
                 _enemyList.ForEach(e => e.Draw(_spriteBatch));
                 //_spriteBatch.Draw(Start_color, life_red, Color.Red);
                 _spriteBatch.Draw(UI_bar, new Vector2(0, 0), Color.White);

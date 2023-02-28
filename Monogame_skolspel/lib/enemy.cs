@@ -56,7 +56,7 @@ namespace Monogame_skolspel.lib
             //}
             //position.X += 10;
 
-            IsActive = true;
+            this.IsActive = true;
         }
 
         public override void Draw(SpriteBatch spritebatch)
