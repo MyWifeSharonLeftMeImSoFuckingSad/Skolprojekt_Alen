@@ -18,13 +18,15 @@ namespace Monogame_skolspel.lib
         Random rnd = new Random();
 
         
+        
         public enemy(Game game) : base(game)
         {
             texture = texture = game.Content.Load<Texture2D>("slime_enemy");
             //position_b = new Vector2(-40, rnd.Next(1, 301));
             position_b = new Vector2(0, 100);
             //origin = new Vector2(texture.Width / 2, texture.Height / 2);
-
+            IsActive = true;
+            Color = Color.White;
 
             SpritePosEnemy.Add("normal0", new Rectangle(215, 40, 60, 40));
             SpritePosEnemy.Add("normal1", new Rectangle(315, 40, 55, 40));
@@ -43,10 +45,17 @@ namespace Monogame_skolspel.lib
 
         public override void Update()
         {
-           
-         
+            //Color = Color.White; 
 
-            
+            delay++;
+
+            if(delay == 10)
+            {
+                Color= Color.White;
+                delay = 0;
+            }
+
+
 
 
             //position.X += 10;
@@ -56,12 +65,14 @@ namespace Monogame_skolspel.lib
             //}
             //position.X += 10;
 
-            this.IsActive = true;
+
         }
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, position_b, SpritePosEnemy["normal" + step] , Color.White);
+          
+            spritebatch.Draw(texture, position_b, SpritePosEnemy["normal" + step] , Color);
+            
         }
     }
 }

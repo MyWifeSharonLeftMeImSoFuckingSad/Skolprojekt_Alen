@@ -18,12 +18,14 @@ namespace Monogame_skolspel.lib
       
         public Texture2D texture { get; set; }
         public Vector2 position_b;
-        public virtual Color Color { get; set; } = Color.White;
+        public Color Color { get; set; } = Color.White;
         public int _speed { get; set; } = 5;
         public bool IsActive { get; set; } = true;
         public Rectangle bullRect;
         public double step = 0;
         public double delay = 0;
+
+
 
         
         public Rectangle Rectangle
@@ -38,7 +40,7 @@ namespace Monogame_skolspel.lib
         {
             get
             {
-                return new Rectangle((int)position_b.X, (int)position_b.Y,60, 40);
+                return new Rectangle((int)position_b.X, (int)position_b.Y,38, 27);
             }
         }
 

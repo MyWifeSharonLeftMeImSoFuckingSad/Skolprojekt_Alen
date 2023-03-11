@@ -92,6 +92,10 @@ namespace Monogame_skolspel
         int Bomb_delay = 300;
         int BombTime;
 
+        int hit_delay = 3000;
+        int hitTime;
+
+
         double step = 0;
         double delay = 0;
 
@@ -236,10 +240,11 @@ namespace Monogame_skolspel
 
 
                 step += gameTime.ElapsedGameTime.Milliseconds;
-                if(step > 3000)
+                if(step > 4000)
                 {
                     _enemyList.Add(new enemy(this));
                     step = 0;
+                    _enemyList.ForEach(e => e.Update());
                 }
 
 
@@ -262,7 +267,7 @@ namespace Monogame_skolspel
                     {
                         e.position_b.Y -= 2;
                     }
-                    _enemyList.ForEach(e => e.Update());
+                    
 
 
                     if (e.step == 3)
@@ -288,20 +293,53 @@ namespace Monogame_skolspel
                         Health_pos_x += 1;
                     }
 
+                    
+
                     foreach (bullet b in _bulletList)
                     {
 
                         if (b.Rectangle.Intersects(e.RectangleEnemy))
                         {
                             count++;
+                            e.Color = Color.Red;
+
+                            hitTime = hit_delay;
+
+                           
+                           
                             b.IsActive = false;
-                            e.IsActive = false;
+                            
+
                         }
+
+                        //if (hitTime == 0)
+                        //{
+                        //    e.IsActive = false;
+                        //}
+
+                        //if(b.Rectangle.Intersects(e.RectangleEnemy) && hitTime == 0)
+                        //{
+                        //    e.IsActive = false;
+                        //}
+
+
                     }
 
+                  
+
+                    hitTime -= gameTime.ElapsedGameTime.Milliseconds;
+                    if (hitTime < 0)
+                    {
+                        hitTime = 0;
+                    }
+
+                    
 
 
-            }
+
+                }
+                _enemyList.ForEach(e => e.Update());
+                _enemyList.RemoveAll(e => !e.IsActive);
 
                 if (Health == 0)
                 {
