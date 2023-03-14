@@ -38,6 +38,9 @@ namespace Monogame_skolspel
 
         sprite_bullet enemy;
 
+        
+
+
         sprite_bullet bullet;
         private Texture2D _bullet;
 
@@ -69,6 +72,12 @@ namespace Monogame_skolspel
         private Texture2D currentTextScore;
         private Texture2D UI_bar;
 
+        private backpack backpack;
+        private Texture2D backText;
+        private Rectangle backRect;
+
+
+
         private Rectangle mouseRect;
 
         int direction = 0;
@@ -77,6 +86,7 @@ namespace Monogame_skolspel
 
         player s;
         enemy e;
+        backpack g;
         
 
         int bullet_delay = 1000;
@@ -92,8 +102,7 @@ namespace Monogame_skolspel
         int Bomb_delay = 300;
         int BombTime;
 
-        int hit_delay = 3000;
-        int hitTime;
+        int Flash;
 
 
         double step = 0;
@@ -130,6 +139,9 @@ namespace Monogame_skolspel
             main_menu = Content.Load<Texture2D>("main-menu-bg");
             counter = Content.Load<SpriteFont>("font");
 
+            //backpack = Content.Load<Texture2D>("backpack-ss");
+            //backpack_hover = Content.Load<Texture2D>("backpack-ss");
+
             //Start = new Rectangle(10, 11, 35, 105);
             //Start2 = new Rectangle(10, 11, 35, 105);
             Start_color = new Texture2D(GraphicsDevice, 1, 1);
@@ -151,7 +163,10 @@ namespace Monogame_skolspel
             buttFont = Content.Load<SpriteFont>("font");
             buttRect = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 100, _graphics.PreferredBackBufferHeight / 2, 200, 50);
             scoreRect = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 100, _graphics.PreferredBackBufferHeight / 2 + 100, 200, 50);
-            
+
+            backText = Content.Load<Texture2D>("backpack-main");
+            backRect = new Rectangle(1151, 20, 100, 96);
+
             MouseState mouseState = Mouse.GetState();
             mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
 
@@ -163,6 +178,7 @@ namespace Monogame_skolspel
             //e = new enemy(this);
             //_enemyList.Add(e);
 
+           
 
         }
 
@@ -178,6 +194,8 @@ namespace Monogame_skolspel
 
                 highscore = new Button(currentTextScore, scoreRect, buttFont, "Highscore");
 
+              
+
                 //kod för att först kontrollera musens "stadie" vilket sedan används för att se om
                 //musen position är inne i knappens area för att byta texture på knappen. Samt en kod för när
                 //trycker på knappen så att spelet börjar.
@@ -190,6 +208,12 @@ namespace Monogame_skolspel
                 {
                     currentButt = buttText;
                 }
+
+                if (backRect.Contains(mouseState.Position))
+                {
+                    count++;
+                }
+
 
                 if (buttRect.Contains(mouseState.Position) & mouseState.LeftButton == ButtonState.Pressed)
                 {
@@ -218,7 +242,30 @@ namespace Monogame_skolspel
 
             if (ActiveState == GameState.InGame)
             {
-                //count++;
+                backpack = new backpack(backText, backRect);
+                backpack.Update();
+
+                MouseState mouseState = Mouse.GetState();
+                mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
+
+                if (backRect.Contains(mouseState.Position))
+                {
+                    count++;
+                    backText = Content.Load<Texture2D>("backpack-hover");
+                }
+                else
+                {
+                    backText = Content.Load<Texture2D>("backpack-main");
+                }
+                    ////count++;
+                
+
+
+
+                //if (backRect.Contains(mouseState))
+                //{
+
+                //}
 
                 var ks = Keyboard.GetState();
                 if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
@@ -293,7 +340,7 @@ namespace Monogame_skolspel
                         Health_pos_x += 1;
                     }
 
-                    
+                   
 
                     foreach (bullet b in _bulletList)
                     {
@@ -303,7 +350,14 @@ namespace Monogame_skolspel
                             count++;
                             e.Color = Color.Red;
 
-                            hitTime = hit_delay;
+                            //Flash++;
+
+                            //if(Flash == 10)
+                            //{
+                            //    e.IsActive = false;
+                            //    Flash = 0;
+                            //}
+
 
                            
                            
@@ -317,21 +371,17 @@ namespace Monogame_skolspel
                         //    e.IsActive = false;
                         //}
 
-                        //if(b.Rectangle.Intersects(e.RectangleEnemy) && hitTime == 0)
-                        //{
-                        //    e.IsActive = false;
-                        //}
+                        if (b.Rectangle.Intersects(e.RectangleEnemy))
+                        {
+                            e.ActiveFlash = true;
+                        }
 
 
                     }
 
                   
 
-                    hitTime -= gameTime.ElapsedGameTime.Milliseconds;
-                    if (hitTime < 0)
-                    {
-                        hitTime = 0;
-                    }
+                  
 
                     
 
@@ -559,10 +609,12 @@ namespace Monogame_skolspel
                 _sprites.ForEach(e => e.Draw(_spriteBatch));
                 _bulletList.ForEach(e => e.Draw(_spriteBatch));
                 _enemyList.ForEach(e => e.Draw(_spriteBatch));
+                backpack.Draw(_spriteBatch);
                 //_spriteBatch.Draw(Start_color, life_red, Color.Red);
                 _spriteBatch.Draw(UI_bar, new Vector2(0, 0), Color.White);
                 _spriteBatch.Draw(Healht_green, new Rectangle((int)Health_pos_x, -5, Health, 900), Color.White);
                 _spriteBatch.DrawString(counter, count.ToString(), new Vector2(155, 85), Color.WhiteSmoke);
+                
             }
             else if (ActiveState == GameState.MainMenu)
             {

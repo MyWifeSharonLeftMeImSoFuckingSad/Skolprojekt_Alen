@@ -17,7 +17,7 @@ namespace Monogame_skolspel.lib
        
         Random rnd = new Random();
 
-        
+        int Flash;
         
         public enemy(Game game) : base(game)
         {
@@ -27,6 +27,7 @@ namespace Monogame_skolspel.lib
             //origin = new Vector2(texture.Width / 2, texture.Height / 2);
             IsActive = true;
             Color = Color.White;
+
 
             SpritePosEnemy.Add("normal0", new Rectangle(215, 40, 60, 40));
             SpritePosEnemy.Add("normal1", new Rectangle(315, 40, 55, 40));
@@ -47,13 +48,32 @@ namespace Monogame_skolspel.lib
         {
             //Color = Color.White; 
 
-            delay++;
-
-            if(delay == 10)
+            if(ActiveFlash == true)
             {
-                Color= Color.White;
-                delay = 0;
+                Flash++;
+
+                if (Flash == 11)
+                {
+                    Color = Color.White;
+
+                }
+
+                if (Flash == 12)
+                {
+                    IsActive = false;
+                    
+                }
+                
+                if(Flash == 12)
+                {
+                    ActiveFlash = false;
+                    Flash = 0;
+                }
+                position_b.X -= 5;
             }
+           
+
+
 
 
 

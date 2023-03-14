@@ -21,6 +21,7 @@ namespace Monogame_skolspel.lib
         public Color Color { get; set; } = Color.White;
         public int _speed { get; set; } = 5;
         public bool IsActive { get; set; } = true;
+        public bool ActiveFlash { get; set; } = false;
         public Rectangle bullRect;
         public double step = 0;
         public double delay = 0;
@@ -44,29 +45,17 @@ namespace Monogame_skolspel.lib
             }
         }
 
-        public Rectangle RectangleUp
+        public Rectangle RectangleBB
         {
             get
             {
-                return new Rectangle((int)position_b.X, (int)position_b.Y, 21, 9);
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 102, 94);
             }
         }
 
-        public Rectangle RectangleDown
-        {
-            get
-            {
-                return new Rectangle((int)position_b.X, (int)position_b.Y, 11, 22);
-            }
-        }
+       
 
-        public Rectangle RectangleRight
-        {
-            get
-            {
-                return new Rectangle((int)position_b.X, (int)position_b.Y, 21, 9);
-            }
-        }
+      
 
         public virtual void Draw(SpriteBatch spritebatch)
             {
