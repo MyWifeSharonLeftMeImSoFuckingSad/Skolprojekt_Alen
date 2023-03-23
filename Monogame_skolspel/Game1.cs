@@ -74,8 +74,19 @@ namespace Monogame_skolspel
 
         private backpack backpack;
         private Texture2D backText;
+        private Texture2D backText_hover;
         private Rectangle backRect;
+        private Texture2D backcurrentText;
 
+        private bool backpackUI = false;
+
+        private Texture2D backBG;
+        private exitBtn exitBtn;
+        private Texture2D exit_main;
+        private Texture2D exit_hover;
+        private Texture2D exitcurrent_text;
+        private Rectangle exitRect;
+        
 
 
         private Rectangle mouseRect;
@@ -165,7 +176,16 @@ namespace Monogame_skolspel
             scoreRect = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 100, _graphics.PreferredBackBufferHeight / 2 + 100, 200, 50);
 
             backText = Content.Load<Texture2D>("backpack-main");
+            backText_hover = Content.Load<Texture2D>("backpack-hover");
             backRect = new Rectangle(1151, 20, 100, 96);
+            backcurrentText = Content.Load<Texture2D>("backpack-main");
+
+            backBG = Content.Load<Texture2D>("backpack-bg");
+
+            exitcurrent_text = Content.Load<Texture2D>("exit-main");
+            exit_main = Content.Load<Texture2D>("exit-main");
+            exit_hover = Content.Load<Texture2D>("exit-hover");
+            exitRect = new Rectangle(1050, 20, 100, 96);
 
             MouseState mouseState = Mouse.GetState();
             mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
@@ -211,8 +231,10 @@ namespace Monogame_skolspel
 
                 if (backRect.Contains(mouseState.Position))
                 {
-                    count++;
+                    backpackUI = true;
                 }
+
+                
 
 
                 if (buttRect.Contains(mouseState.Position) & mouseState.LeftButton == ButtonState.Pressed)
@@ -242,25 +264,44 @@ namespace Monogame_skolspel
 
             if (ActiveState == GameState.InGame)
             {
-                backpack = new backpack(backText, backRect);
+                backpack = new backpack(backcurrentText, backRect);
                 backpack.Update();
+
+                exitBtn = new exitBtn(exitcurrent_text, exitRect);
+                exitBtn.Update();
 
                 MouseState mouseState = Mouse.GetState();
                 mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
 
                 if (backRect.Contains(mouseState.Position))
                 {
-                    count++;
-                    backText = Content.Load<Texture2D>("backpack-hover");
+                    backcurrentText = backText_hover;
+                    
                 }
                 else
                 {
-                    backText = Content.Load<Texture2D>("backpack-main");
+                    backcurrentText = backText;
                 }
-                    ////count++;
                 
+                if(backRect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    backpackUI = true;
+                }
 
-
+                if (exitRect.Contains(mouseState.Position))
+                {
+                    exitcurrent_text = exit_hover;
+                    
+                }
+                else
+                {
+                    exitcurrent_text = exit_main;
+                }
+    
+                if(exitRect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    backpackUI = false;
+                }
 
                 //if (backRect.Contains(mouseState))
                 //{
@@ -614,6 +655,12 @@ namespace Monogame_skolspel
                 _spriteBatch.Draw(UI_bar, new Vector2(0, 0), Color.White);
                 _spriteBatch.Draw(Healht_green, new Rectangle((int)Health_pos_x, -5, Health, 900), Color.White);
                 _spriteBatch.DrawString(counter, count.ToString(), new Vector2(155, 85), Color.WhiteSmoke);
+
+                if (backpackUI == true)
+                {
+                    _spriteBatch.Draw(backBG, new Vector2(0, - 50), Color.White);
+                    exitBtn.Draw(_spriteBatch);
+                }
                 
             }
             else if (ActiveState == GameState.MainMenu)

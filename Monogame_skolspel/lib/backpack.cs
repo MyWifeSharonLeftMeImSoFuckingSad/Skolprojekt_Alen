@@ -16,7 +16,7 @@ namespace Monogame_skolspel.lib
         MouseState mouseState = Mouse.GetState();
         Rectangle _backRect;
         Texture2D _backText;
-        Vector2 _backPos;
+      
         public backpack(Texture2D texture, Rectangle rectangle)
         {
             _backText = texture;

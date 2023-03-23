@@ -61,6 +61,18 @@
 /processorParam:TextureFormat=Color
 /build:background.jpg
 
+#begin backpack-bg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:backpack-bg.png
+
 #begin backpack-hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -293,6 +305,30 @@
 /importer:H264Importer
 /processor:VideoProcessor
 /build:clideo_editor_37d560eb8b664771b17724a914d09965.mp4
+
+#begin exit-hover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:exit-hover.png
+
+#begin exit-main.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:exit-main.png
 
 #begin File.spritefont
 /importer:FontDescriptionImporter
