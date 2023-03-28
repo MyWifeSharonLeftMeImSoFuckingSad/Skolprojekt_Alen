@@ -19,7 +19,8 @@ namespace Monogame_skolspel
     {
         MainMenu,
         Highscore,
-        InGame
+        InGame,
+        PauseGame
     }
    
     public class Game1 : Game
@@ -260,12 +261,11 @@ namespace Monogame_skolspel
             //if (ActiveState == GameState.InGame) 
             //{ 
 
-            
 
             if (ActiveState == GameState.InGame)
             {
                 backpack = new backpack(backcurrentText, backRect);
-                backpack.Update();
+                
 
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
                 exitBtn.Update();
@@ -286,7 +286,10 @@ namespace Monogame_skolspel
                 if(backRect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
                 {
                     backpackUI = true;
+                    ActiveState = GameState.PauseGame;
                 }
+
+                exitBtn.Update();
 
                 if (exitRect.Contains(mouseState.Position))
                 {
@@ -635,6 +638,36 @@ namespace Monogame_skolspel
 
 
             }
+
+
+            if (ActiveState == GameState.PauseGame)
+            {
+                backpack = new backpack(backcurrentText, backRect);
+                backpack.Update();
+
+                exitBtn = new exitBtn(exitcurrent_text, exitRect);
+                exitBtn.Update();
+
+                MouseState mouseState = Mouse.GetState();
+                mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
+
+                //backpackUI = true;
+
+                if (exitRect.Contains(mouseState.Position))
+                {
+                    exitcurrent_text = exit_hover;
+                }
+                else
+                {
+                    exitcurrent_text = exit_main;
+                }
+
+                if (exitRect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    //backpackUI = false;
+                    ActiveState = GameState.InGame;
+                }
+            }
         }
 
      
@@ -643,6 +676,7 @@ namespace Monogame_skolspel
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+
             if(ActiveState == GameState.InGame)
             {
                 _spriteBatch.Draw(background_1, Vector2.Zero, Color.White);
@@ -669,46 +703,27 @@ namespace Monogame_skolspel
                 button.Draw(_spriteBatch);
                 highscore.Draw(_spriteBatch);
             }
-
-            //_spriteBatch.Draw(, mouseRect, Color.Red);
-
-            /*var kb = Keyboard.GetState();
-
-            if (kb.IsKeyDown(Keys.W))
+            else if(ActiveState == GameState.PauseGame)
             {
-                position.Y -= Speed;
-                //playerCurrent = playerBack;
-                _spriteBatch.Draw(playerBack, position, Color.White);
+                _spriteBatch.Draw(background_1, Vector2.Zero, Color.White);
+                _spriteBatch.Draw(background_2, Vector2.Zero, Color.White);
+                _sprites.ForEach(e => e.Draw(_spriteBatch));
+                _bulletList.ForEach(e => e.Draw(_spriteBatch));
+                _enemyList.ForEach(e => e.Draw(_spriteBatch));
+                backpack.Draw(_spriteBatch);
+                //_spriteBatch.Draw(Start_color, life_red, Color.Red);
+                _spriteBatch.Draw(UI_bar, new Vector2(0, 0), Color.White);
+                _spriteBatch.Draw(Healht_green, new Rectangle((int)Health_pos_x, -5, Health, 900), Color.White);
+                _spriteBatch.DrawString(counter, count.ToString(), new Vector2(155, 85), Color.WhiteSmoke);
 
-
-            }
-            else
-            {
-                //playerCurrent = playerNormal;
-                _spriteBatch.Draw(playerNormal, position, Color.White);
-
-            };
-
-            if (kb.IsKeyDown(Keys.S))
-            {
-                position.Y += Speed;
-                _spriteBatch.Draw(playerNormal, position, Color.White);
+                if (backpackUI == true)
+                {
+                    _spriteBatch.Draw(backBG, new Vector2(0, -50), Color.White);
+                    exitBtn.Draw(_spriteBatch);
+                }
             }
 
-            
-
-            if (kb.IsKeyDown(Keys.A))
-            {
-                position.X -= Speed;
-                _spriteBatch.Draw(playerLeft, position, Color.White);
-            }
-
-            if (kb.IsKeyDown(Keys.D))
-            {
-                position.X += Speed;
-                _spriteBatch.Draw(playerRight, position, Color.White);
-            }
-            */
+           
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
