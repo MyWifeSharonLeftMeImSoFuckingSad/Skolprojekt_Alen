@@ -58,9 +58,6 @@ namespace Monogame_skolspel.lib
             }
         }
 
-
-
-
         public override void Update()
         {
             bullet_time -= 10;

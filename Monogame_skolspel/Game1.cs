@@ -215,8 +215,6 @@ namespace Monogame_skolspel
 
                 highscore = new Button(currentTextScore, scoreRect, buttFont, "Highscore");
 
-              
-
                 //kod för att först kontrollera musens "stadie" vilket sedan används för att se om
                 //musen position är inne i knappens area för att byta texture på knappen. Samt en kod för när
                 //trycker på knappen så att spelet börjar.
@@ -256,16 +254,12 @@ namespace Monogame_skolspel
                 button.Update(gameTime);
             }
 
-            
-
             //if (ActiveState == GameState.InGame) 
             //{ 
-
 
             if (ActiveState == GameState.InGame)
             {
                 backpack = new backpack(backcurrentText, backRect);
-                
 
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
                 exitBtn.Update();
