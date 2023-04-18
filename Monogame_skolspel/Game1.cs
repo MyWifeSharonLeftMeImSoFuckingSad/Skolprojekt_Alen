@@ -11,7 +11,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Media;
 using DocumentFormat.OpenXml.Office2013.Word.Drawing;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
-
+using System.Text.Json.Nodes;
 
 namespace Monogame_skolspel
 {
@@ -39,8 +39,15 @@ namespace Monogame_skolspel
 
         sprite_bullet enemy;
 
+        private Texture2D scoreBG;
+        private SpriteFont scoreOne;
+        private SpriteFont scoreTwo;
+        private SpriteFont scoreThree;
         
+        private DateTime DateAdded;
 
+        private new highscore test;
+        
 
         sprite_bullet bullet;
         private Texture2D _bullet;
@@ -182,6 +189,10 @@ namespace Monogame_skolspel
             backcurrentText = Content.Load<Texture2D>("backpack-main");
 
             backBG = Content.Load<Texture2D>("backpack-bg");
+            scoreBG = Content.Load<Texture2D>("scoreBG");
+            scoreOne = Content.Load<SpriteFont>("font");
+            scoreTwo = Content.Load<SpriteFont>("font");
+            scoreThree = Content.Load<SpriteFont>("font");
 
             exitcurrent_text = Content.Load<Texture2D>("exit-main");
             exit_main = Content.Load<Texture2D>("exit-main");
@@ -219,6 +230,7 @@ namespace Monogame_skolspel
                 //musen position är inne i knappens area för att byta texture på knappen. Samt en kod för när
                 //trycker på knappen så att spelet börjar.
                 MouseState mouseState = Mouse.GetState();
+                //Start button
                 if (buttRect.Contains(mouseState.Position))
                 {
                     currentButt = buttTextHov;
@@ -232,9 +244,6 @@ namespace Monogame_skolspel
                 {
                     backpackUI = true;
                 }
-
-                
-
 
                 if (buttRect.Contains(mouseState.Position) & mouseState.LeftButton == ButtonState.Pressed)
                 {
@@ -250,12 +259,52 @@ namespace Monogame_skolspel
                     currentTextScore = buttText;
                 }
 
+                //Score button
+                if (scoreRect.Contains(mouseState.Position))
+                {
+                    currentTextScore = buttTextHov;
+                }
+                else
+                {
+                    currentTextScore = buttText;
+                }
+
+                if(scoreRect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    ActiveState = GameState.Highscore;
+                }
 
                 button.Update(gameTime);
             }
 
             //if (ActiveState == GameState.InGame) 
             //{ 
+
+            if(ActiveState == GameState.Highscore)
+            {
+                backpack = new backpack(backcurrentText, backRect);
+
+
+                exitBtn = new exitBtn(exitcurrent_text, exitRect);
+                exitBtn.Update();
+
+                MouseState mouseState = Mouse.GetState();
+                mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
+
+                if (exitRect.Contains(mouseState.Position))
+                {
+                    exitcurrent_text = exit_hover;
+                }
+                else
+                {
+                    exitcurrent_text = exit_main;
+                }
+
+                if(exitRect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    ActiveState = GameState.MainMenu;
+                }
+            }
 
             if (ActiveState == GameState.InGame)
             {
@@ -414,16 +463,7 @@ namespace Monogame_skolspel
                             e.ActiveFlash = true;
                         }
 
-
                     }
-
-                  
-
-                  
-
-                    
-
-
 
                 }
                 _enemyList.ForEach(e => e.Update());
@@ -432,6 +472,8 @@ namespace Monogame_skolspel
                 if (Health == 0)
                 {
                     ActiveState = GameState.MainMenu;
+                    test.Points = count ;
+
                 }
              
                 if (BombTime == 0)
@@ -688,6 +730,7 @@ namespace Monogame_skolspel
                 {
                     _spriteBatch.Draw(backBG, new Vector2(0, - 50), Color.White);
                     exitBtn.Draw(_spriteBatch);
+                    _spriteBatch.DrawString(scoreOne, count.ToString(), new Vector2(0, 0), Color.White);
                 }
                 
             }
@@ -715,6 +758,12 @@ namespace Monogame_skolspel
                     _spriteBatch.Draw(backBG, new Vector2(0, -50), Color.White);
                     exitBtn.Draw(_spriteBatch);
                 }
+            }
+            else if(ActiveState == GameState.Highscore)
+            {
+                _spriteBatch.Draw(scoreBG, Vector2.Zero, Color.White);
+                exitBtn.Draw(_spriteBatch);
+                _spriteBatch.DrawString(scoreOne, test.Points.ToString(), new Vector2(100, 100), Color.WhiteSmoke);
             }
 
            
