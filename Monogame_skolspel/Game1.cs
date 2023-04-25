@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 using DocumentFormat.OpenXml.Office2013.Word.Drawing;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using System.Text.Json.Nodes;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Monogame_skolspel
 {
@@ -29,6 +31,9 @@ namespace Monogame_skolspel
         private SpriteBatch _spriteBatch;
         private GameState ActiveState = GameState.MainMenu;
 
+        private string playerdata = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "highscoreS.json");
+
+
         private Texture2D background_1;
         private Texture2D background_2;
 
@@ -44,11 +49,6 @@ namespace Monogame_skolspel
         private SpriteFont scoreTwo;
         private SpriteFont scoreThree;
         
-        private DateTime DateAdded;
-
-        private new highscore test;
-        
-
         sprite_bullet bullet;
         private Texture2D _bullet;
 
@@ -130,6 +130,7 @@ namespace Monogame_skolspel
         List<sprite_bullet> _sprites { get; set; } = new List<sprite_bullet>();
         List<sprite_bullet> _enemyList { get; set; } = new List<sprite_bullet>();
         List<sprite_bullet> _bulletList { get; set; } = new List<sprite_bullet>();
+        private List<highscore> highscores { get; set; } = new List<highscore>();
 
         public Game1()
         {
@@ -137,6 +138,10 @@ namespace Monogame_skolspel
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.IsFullScreen = true;
+
+            Health = 1310;
+            count = 0;
+            
         }
 
         protected override void Initialize()
@@ -283,6 +288,8 @@ namespace Monogame_skolspel
             if(ActiveState == GameState.Highscore)
             {
                 backpack = new backpack(backcurrentText, backRect);
+
+                
 
 
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
@@ -472,7 +479,13 @@ namespace Monogame_skolspel
                 if (Health == 0)
                 {
                     ActiveState = GameState.MainMenu;
-                    test.Points = count ;
+                    highscore newHs = new highscore()
+                    {
+                        Points = count,
+                        Name = "test",
+                        DateAdded = DateTime.Now,
+                    };
+                    SaveScore(newHs);
 
                 }
              
@@ -672,6 +685,8 @@ namespace Monogame_skolspel
 
                 base.Update(gameTime);
 
+                
+
 
             }
 
@@ -706,7 +721,38 @@ namespace Monogame_skolspel
             }
         }
 
-     
+
+        private void SaveScore(highscore newScore)
+        {
+            highscores.Add(newScore);
+
+            using (FileStream fs = File.Open(playerdata, FileMode.CreateNew))
+            using (StreamWriter sw = new StreamWriter(fs))
+            using (Newtonsoft.Json.JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+                Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+                serializer.Serialize(jw, highscore);
+
+            }
+        }
+
+        private void DrawHigScore()
+        {
+         
+            if(ActiveState == GameState.Highscore)
+            {
+                foreach (var hs in highscores)
+                {
+
+                    _spriteBatch.DrawString(scoreOne, hs.DateAdded + " " + hs.Name + " " + hs.Points, new Vector2(250, 100), Color.White);
+
+                }
+            }
+           
+
+        }
 
         protected override void Draw(GameTime gameTime)
         {
@@ -763,7 +809,8 @@ namespace Monogame_skolspel
             {
                 _spriteBatch.Draw(scoreBG, Vector2.Zero, Color.White);
                 exitBtn.Draw(_spriteBatch);
-                _spriteBatch.DrawString(scoreOne, test.Points.ToString(), new Vector2(100, 100), Color.WhiteSmoke);
+                DrawHigScore();
+                //_spriteBatch.DrawString(scoreOne, test.Points.ToString(), new Vector2(100, 100), Color.WhiteSmoke);
             }
 
            
