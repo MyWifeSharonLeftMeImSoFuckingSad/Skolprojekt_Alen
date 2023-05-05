@@ -92,6 +92,7 @@ namespace Monogame_skolspel
 
         private exitBtn item_buy_heart;
         private Rectangle item_heart_rect;
+        private bool item_heart_buy = false;
 
         private Texture2D buy_main;
         private Texture2D buy_hover;
@@ -234,9 +235,10 @@ namespace Monogame_skolspel
             //itemshop
             buy_main = Content.Load<Texture2D>("buy-btn-main");
             buy_hover = Content.Load<Texture2D>("buy-btn-hover");
+            buy_current = Content.Load<Texture2D>("buy-btn-main");
 
             itemshop_heart = Content.Load<Texture2D>("itemshop-heart-v2");
-            item_heart_rect = new Rectangle(0, 0, buy_main.Width, buy_main.Height);
+            item_heart_rect = new Rectangle(320, 300, buy_main.Width, buy_main.Height);
             itemshop_bow = Content.Load<Texture2D>("itemshop-bow-v2");
             itemshop_bullet_speed = Content.Load<Texture2D>("itemshop-bullet-speed-v2");
             MouseState mouseState = Mouse.GetState();
@@ -736,7 +738,7 @@ namespace Monogame_skolspel
                 backpack.Update();
 
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
-                item_buy_heart = new exitBtn(buy_main, item_heart_rect);
+                item_buy_heart = new exitBtn(buy_current, item_heart_rect);
 
 
 
@@ -764,14 +766,44 @@ namespace Monogame_skolspel
                 }
 
                 //itemshopBtn
-                if (item_heart_rect.Contains(mouseState.Position))
+                if (Health == 1310)
                 {
-                    buy_main = buy_hover;
+                    item_heart_buy = false;
                 }
                 else
                 {
-                    buy_main = buy_main;
+                    item_heart_buy = true;
                 }
+
+                if (item_heart_buy == true)
+                {
+                    if (item_heart_rect.Contains(mouseState.Position))
+                    {
+                        buy_current = buy_hover;
+                    }
+                    else
+                    {
+                        buy_current = buy_main;
+                    }
+                }
+                else
+                {
+                    buy_current = buy_hover;
+                }
+
+                if(item_heart_rect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_heart_buy == true)
+                {
+                    Health += 100;
+                    Health_pos_x -= 10;
+                }
+
+                if(Health > 1310)
+                {
+                    Health = 1310;
+                    Health_pos_x = -3;
+                }
+
+               
             }
         }
 
