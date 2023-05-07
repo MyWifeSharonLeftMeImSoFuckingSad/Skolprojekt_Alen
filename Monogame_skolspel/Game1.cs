@@ -90,6 +90,7 @@ namespace Monogame_skolspel
         private Texture2D itemshop_bow;
         private Texture2D itemshop_bullet_speed;
 
+        //item.s-heart
         private exitBtn item_buy_heart;
         private Rectangle item_heart_rect;
         private bool item_heart_buy = false;
@@ -99,6 +100,8 @@ namespace Monogame_skolspel
         private Texture2D buy_current;
 
         private exitBtn item_buy_bow;
+
+        //item.s-bullet
         private exitBtn item_buy_bullet;
 
         //backpack
