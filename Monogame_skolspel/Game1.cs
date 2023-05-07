@@ -58,6 +58,9 @@ namespace Monogame_skolspel
         sprite_bullet bulletTest;
         private Texture2D _bulletTest;
 
+        //arrows
+        private arrow arrow;
+
         //random stuff
         private Rectangle Start;
         private Rectangle Start2;
@@ -164,6 +167,7 @@ namespace Monogame_skolspel
         List<sprite_bullet> _sprites { get; set; } = new List<sprite_bullet>();
         List<sprite_bullet> _enemyList { get; set; } = new List<sprite_bullet>();
         List<sprite_bullet> _bulletList { get; set; } = new List<sprite_bullet>();
+        List<sprite_bullet> _arrowList { get; set; } = new List<sprite_bullet>();
 
         private string playerdata = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "highscoreS.json");
         private List<highscore> highscores { get; set; } = new List<highscore>();
@@ -379,9 +383,10 @@ namespace Monogame_skolspel
             if (ActiveState == GameState.InGame)
             {
                 backpack = new backpack(backcurrentText, backRect);
-
+                _arrowList.Add(new arrow(this));
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
                 exitBtn.Update();
+               
 
                 MouseState mouseState = Mouse.GetState();
                 mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
@@ -845,7 +850,7 @@ namespace Monogame_skolspel
                     buy_current_bullet = buy_hover;
                 }
 
-                if(item_bullet_rect.Contains(mousebuState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bullet_buy == true)
+                if(item_bullet_rect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bullet_buy == true)
                 {
                     bullet_delay -= 250;
                     count -= 1;
@@ -1001,11 +1006,13 @@ namespace Monogame_skolspel
                 _sprites.ForEach(e => e.Draw(_spriteBatch));
                 _bulletList.ForEach(e => e.Draw(_spriteBatch));
                 _enemyList.ForEach(e => e.Draw(_spriteBatch));
+                _arrowList.ForEach(e => e.Draw(_spriteBatch));
                 backpack.Draw(_spriteBatch);
                 //_spriteBatch.Draw(Start_color, life_red, Color.Red);
                 _spriteBatch.Draw(UI_bar, new Vector2(0, 0), Color.White);
                 _spriteBatch.Draw(Healht_green, new Rectangle((int)Health_pos_x, -5, Health, 900), Color.White);
                 _spriteBatch.DrawString(counter, count.ToString(), new Vector2(155, 85), Color.WhiteSmoke);
+                
 
                 if (backpackUI == true)
                 {
