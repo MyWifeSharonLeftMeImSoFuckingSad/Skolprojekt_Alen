@@ -99,8 +99,12 @@ namespace Monogame_skolspel
         private Texture2D buy_hover;
         private Texture2D buy_current;
         private Texture2D buy_current_bullet;
+        private Texture2D buy_current_bow;
 
+        //item.s-bow
         private exitBtn item_buy_bow;
+        private Rectangle item_bow_rect;
+        private bool item_bow_buy = false;
 
         //item.s-bullet
         private exitBtn item_buy_bullet;
@@ -243,12 +247,17 @@ namespace Monogame_skolspel
             buy_hover = Content.Load<Texture2D>("buy-btn-hover");
             buy_current = Content.Load<Texture2D>("buy-btn-main");
             buy_current_bullet = Content.Load<Texture2D>("buy-btn-main");
+            buy_current_bow = Content.Load<Texture2D>("buy-btn-main");
 
+            //item-heart
             itemshop_heart = Content.Load<Texture2D>("itemshop-heart-v2");
             item_heart_rect = new Rectangle(320, 300, buy_main.Width, buy_main.Height);
 
+            //item-bow
             itemshop_bow = Content.Load<Texture2D>("itemshop-bow-v2");
+            item_bow_rect = new Rectangle(850, 300, buy_main.Width, buy_main.Height);
 
+            //item-bullet
             itemshop_bullet_speed = Content.Load<Texture2D>("itemshop-bullet-speed-v2");
             item_bullet_rect = new Rectangle(320, 575, buy_main.Width, buy_main.Height);
 
@@ -751,6 +760,7 @@ namespace Monogame_skolspel
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
                 item_buy_heart = new exitBtn(buy_current, item_heart_rect);
                 item_buy_bullet = new exitBtn(buy_current_bullet, item_bullet_rect);
+                item_buy_bow = new exitBtn(buy_current_bow, item_bow_rect);
 
 
                 exitBtn.Update();
@@ -775,9 +785,40 @@ namespace Monogame_skolspel
                     //backpackUI = false;
                     ActiveState = GameState.InGame;
                 }
+                //itemshopBtn-Bullet
+                if(count >= 1)
+                {
+                    item_bullet_buy = true;
+                }
+                else
+                {
+                    item_bullet_buy = false;
+                }
 
-                //itemshopBtn
-                if(count >= 1 && Health < 1310)
+                if(item_bullet_buy == true)
+                {
+                    if (item_bullet_rect.Contains(mouseState.Position))
+                    {
+                        buy_current_bullet = buy_hover;
+                    }
+                    else
+                    {
+                        buy_current_bullet = buy_main;
+                    }
+                }
+                else
+                {
+                    buy_current_bullet = buy_hover;
+                }
+
+                if(item_bullet_rect.Contains(mouseState.Position) && mouseState.LeftButton!= ButtonState.Pressed && item_bullet_buy == true)
+                {
+                    bullet_delay -= 250;
+                    count -= 1;
+                }
+
+                //itemshopBtn-Heart
+                if(count >= 3 && Health < 1310)
                 {
                     item_heart_buy = true;
                 }
@@ -968,6 +1009,8 @@ namespace Monogame_skolspel
                     //_spriteBatch.Draw(buy_main, new Vector2(320, 300), Color.White);
                     exitBtn.Draw(_spriteBatch);
                     item_buy_heart.Draw(_spriteBatch);
+                    item_buy_bullet.Draw(_spriteBatch);
+                    item_buy_bow.Draw(_spriteBatch);
                 }
             }
             else if (ActiveState == GameState.Highscore)
