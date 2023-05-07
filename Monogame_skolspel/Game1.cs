@@ -845,7 +845,7 @@ namespace Monogame_skolspel
                     buy_current_bullet = buy_hover;
                 }
 
-                if(item_bullet_rect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bullet_buy == true)
+                if(item_bullet_rect.Contains(mousebuState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bullet_buy == true)
                 {
                     bullet_delay -= 250;
                     count -= 1;
