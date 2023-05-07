@@ -15,6 +15,8 @@ using System.Text.Json.Nodes;
 using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace Monogame_skolspel
 {
@@ -255,7 +257,7 @@ namespace Monogame_skolspel
 
             //item-bow
             itemshop_bow = Content.Load<Texture2D>("itemshop-bow-v2");
-            item_bow_rect = new Rectangle(850, 300, buy_main.Width, buy_main.Height);
+            item_bow_rect = new Rectangle(925, 300, buy_main.Width, buy_main.Height);
 
             //item-bullet
             itemshop_bullet_speed = Content.Load<Texture2D>("itemshop-bullet-speed-v2");
@@ -785,8 +787,40 @@ namespace Monogame_skolspel
                     //backpackUI = false;
                     ActiveState = GameState.InGame;
                 }
+
+                //itemshopBtn-Bow;
+                if (count >= 1)
+                {
+                    item_bow_buy = true;
+                }
+                else
+                {
+                    item_bow_buy = false;
+                }
+
+                if(item_bow_buy == true)
+                {
+                    if(item_bow_rect.Contains(mouseState.Position))
+                    {
+                        buy_current_bow = buy_hover;
+                    }
+                    else
+                    {
+                        buy_current_bow = buy_main;
+                    }
+                }
+                else
+                {
+                    buy_current_bow = buy_hover;
+                }
+
+                if (item_bow_rect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bow_buy == true)
+                {
+                    count -= 1;
+                }
+
                 //itemshopBtn-Bullet
-                if(count >= 1)
+                if (count >= 1)
                 {
                     item_bullet_buy = true;
                 }
@@ -811,7 +845,7 @@ namespace Monogame_skolspel
                     buy_current_bullet = buy_hover;
                 }
 
-                if(item_bullet_rect.Contains(mouseState.Position) && mouseState.LeftButton!= ButtonState.Pressed && item_bullet_buy == true)
+                if(item_bullet_rect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bullet_buy == true)
                 {
                     bullet_delay -= 250;
                     count -= 1;
