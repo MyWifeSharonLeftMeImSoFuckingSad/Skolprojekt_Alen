@@ -98,11 +98,14 @@ namespace Monogame_skolspel
         private Texture2D buy_main;
         private Texture2D buy_hover;
         private Texture2D buy_current;
+        private Texture2D buy_current_bullet;
 
         private exitBtn item_buy_bow;
 
         //item.s-bullet
         private exitBtn item_buy_bullet;
+        private Rectangle item_bullet_rect;
+        private bool item_bullet_buy = false;
 
         //backpack
         private backpack backpack;
@@ -239,11 +242,16 @@ namespace Monogame_skolspel
             buy_main = Content.Load<Texture2D>("buy-btn-main");
             buy_hover = Content.Load<Texture2D>("buy-btn-hover");
             buy_current = Content.Load<Texture2D>("buy-btn-main");
+            buy_current_bullet = Content.Load<Texture2D>("buy-btn-main");
 
             itemshop_heart = Content.Load<Texture2D>("itemshop-heart-v2");
             item_heart_rect = new Rectangle(320, 300, buy_main.Width, buy_main.Height);
+
             itemshop_bow = Content.Load<Texture2D>("itemshop-bow-v2");
+
             itemshop_bullet_speed = Content.Load<Texture2D>("itemshop-bullet-speed-v2");
+            item_bullet_rect = new Rectangle(320, 575, buy_main.Width, buy_main.Height);
+
             MouseState mouseState = Mouse.GetState();
             mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
 
@@ -742,7 +750,7 @@ namespace Monogame_skolspel
 
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
                 item_buy_heart = new exitBtn(buy_current, item_heart_rect);
-
+                item_buy_bullet = new exitBtn(buy_current_bullet, item_bullet_rect);
 
 
                 exitBtn.Update();
@@ -769,6 +777,15 @@ namespace Monogame_skolspel
                 }
 
                 //itemshopBtn
+                if(count >= 1 && Health < 1310)
+                {
+                    item_heart_buy = true;
+                }
+                else
+                {
+                    item_heart_buy = false;
+                }
+
                 if (Health == 1310)
                 {
                     item_heart_buy = false;
@@ -798,6 +815,7 @@ namespace Monogame_skolspel
                 {
                     Health += 100;
                     Health_pos_x -= 10;
+                    count -= 1;
                 }
 
                 if(Health > 1310)
