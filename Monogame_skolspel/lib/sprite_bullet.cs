@@ -23,6 +23,7 @@ namespace Monogame_skolspel.lib
         public bool IsActive { get; set; } = true;
         public bool ActiveFlash { get; set; } = false;
         public Rectangle bullRect;
+        public Rectangle arrRect;
         public double step = 0;
         public double delay = 0;
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,23 @@ namespace Monogame_skolspel.lib
             SpritePos.Add("up", new Rectangle(415, 270, 20, 45));
 
             position_b = new Vector2(300, 300);
+
+            var ks = Keyboard.GetState();
+
+            if (ks.IsKeyDown(Keys.D))
+            {
+                arrRect = SpritePos["right"];
+            } else if (ks.IsKeyDown(Keys.S))
+            { 
+                arrRect = SpritePos["down"];
+            } else if(ks.IsKeyDown(Keys.A))
+            {
+                arrRect = SpritePos["left"];            
+            } else if (ks.IsKeyDown(Keys.W))
+            {
+                arrRect = SpritePos["up"];
+            }
+
         }
 
         public override void Update()
