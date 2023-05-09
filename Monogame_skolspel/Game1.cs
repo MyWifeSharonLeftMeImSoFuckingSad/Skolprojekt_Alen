@@ -384,6 +384,10 @@ namespace Monogame_skolspel
             {
                 backpack = new backpack(backcurrentText, backRect);
                 _arrowList.Add(new arrow(this));
+                _arrowList.ForEach(e => e.Update());
+                _arrowList.RemoveAll(e => !e.IsActive);
+
+
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
                 exitBtn.Update();
                
