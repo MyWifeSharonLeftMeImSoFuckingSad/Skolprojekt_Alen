@@ -67,19 +67,12 @@ namespace Monogame_skolspel.lib
             }
 
             var ks = Keyboard.GetState();
-
-            if(bullRect == SpritePos["left"])
-            {
-                
-            }
-          
-
             if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {
                 bullet_time = bullet_delay;
                 direction = 1;
-                
-                
+
+
             }
             else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
             {

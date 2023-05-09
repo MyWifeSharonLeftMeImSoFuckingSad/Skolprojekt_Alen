@@ -38,6 +38,14 @@ namespace Monogame_skolspel.lib
             }
         }
 
+        public Rectangle RectangleArrow
+        {
+            get
+            {
+                return new Rectangle((int)position_b.X, (int)position_b.Y, 45, 13);
+            }
+        }
+
         public Rectangle RectangleEnemy
         {
             get

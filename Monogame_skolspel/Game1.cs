@@ -137,6 +137,7 @@ namespace Monogame_skolspel
         private Rectangle mouseRect;
 
         int direction = 0;
+        int directionArrow = 0;
 
         private Texture2D main_menu;
 
@@ -144,12 +145,17 @@ namespace Monogame_skolspel
         enemy e;
         backpack g;
 
-
+        //bullet-timer
         int bullet_delay = 1000;
         int bullet_time;
 
+        //enemy-timer
         int enemy_delay = 1000;
         int enemyTime;
+
+        //arrow-timer
+        int arrow_delay = 1000;
+        int arrow_time;
 
         Random rnd = new Random();
 
@@ -159,6 +165,8 @@ namespace Monogame_skolspel
         int BombTime;
 
         int Flash;
+
+        bool arrow_bool = true;
 
 
         double step = 0;
@@ -383,9 +391,8 @@ namespace Monogame_skolspel
             if (ActiveState == GameState.InGame)
             {
                 backpack = new backpack(backcurrentText, backRect);
-                _arrowList.Add(new arrow(this));
-                _arrowList.ForEach(e => e.Update());
-                _arrowList.RemoveAll(e => !e.IsActive);
+                //_arrowList.Add(new arrow(this));
+               
 
 
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
@@ -434,6 +441,83 @@ namespace Monogame_skolspel
                 //}
 
                 var ks = Keyboard.GetState();
+                //arrow-direction
+                if(ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                {
+                    directionArrow = 1;
+                }
+                else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                {
+                    directionArrow = 2;
+                }
+                else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                {
+
+                    directionArrow = 3;
+                }
+                else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                {
+                    directionArrow = 4;
+                }
+
+                //arrow-loop
+                arrow_time -= gameTime.ElapsedGameTime.Milliseconds;
+                if (arrow_time < 0)
+                {
+                    arrow_time = 0;
+                }
+
+                if (arrow_bool == true)
+                {
+                    if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                    {
+                        arrow_time = arrow_delay;
+                        _arrowList.Add(new arrow(this)
+                        {
+
+                            position_b = new Vector2(s.position_b.X + 20, s.position_b.Y + 20)
+
+                        });
+
+                    }
+                    else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                    {
+                        arrow_time = arrow_delay;
+                        _arrowList.Add(new arrow(this)
+                        {
+
+                            position_b = new Vector2(s.position_b.X - 20 /*- 240*/, s.position_b.Y + 20 /*- 245*/)
+
+                        });
+                    }
+                    else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                    {
+                        arrow_time = arrow_delay;
+                        _arrowList.Add(new arrow(this)
+                        {
+
+                            position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 275*/)
+
+                        });
+                    }
+                    else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
+                    {
+                        arrow_time = arrow_delay;
+                        _arrowList.Add(new arrow(this)
+                        {
+
+                            position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 255*/)
+
+                        });
+                    }
+                }
+
+               
+
+             
+
+               
+                //bullet-direction
                 if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                 {
                     direction = 1;
@@ -460,7 +544,7 @@ namespace Monogame_skolspel
                     _enemyList.ForEach(e => e.Update());
                 }
 
-
+                //enemy-foreach
                 foreach (enemy e in _enemyList)
                 {
                     if (s.position_b.X > e.position_b.X)
@@ -506,8 +590,19 @@ namespace Monogame_skolspel
                         Health_pos_x += 1;
                     }
 
+                    //foreach-arrow
+                    foreach (arrow a in _arrowList)
+                    {
+                        if (a.Rectangle.Intersects(e.RectangleEnemy))
+                        {
+                            count++;
+                            a.IsActive = false;
+                            e.IsActive = false;
+                        }
+                    }
 
 
+                    //foreach-bullet
                     foreach (bullet b in _bulletList)
                     {
 
@@ -548,6 +643,7 @@ namespace Monogame_skolspel
                 _enemyList.ForEach(e => e.Update());
                 _enemyList.RemoveAll(e => !e.IsActive);
 
+                
                 if (Health == 0)
                 {
                     ActiveState = GameState.MainMenu;
@@ -680,74 +776,54 @@ namespace Monogame_skolspel
                 //om man håller ner D och space så skapas ett skott, bullet_time måste också vara 0
                 //för att detta ska ske. Efter skottet blir bullet_time = 1000 och börjar räkna ner
                 //för att man ska kunna skjuta igen (alltså en delay på skotten)
-
-                if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
+                if(arrow_bool == false)
                 {
-                    bullet_time = bullet_delay;
-                    _bulletList.Add(new bullet(this)
+                    if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                     {
+                        bullet_time = bullet_delay;
+                        _bulletList.Add(new bullet(this)
+                        {
 
-                        position_b = new Vector2(s.position_b.X + 20, s.position_b.Y + 20)
+                            position_b = new Vector2(s.position_b.X + 20, s.position_b.Y + 20)
 
-                    });
+                        });
 
-                }
-                else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
-                {
-                    bullet_time = bullet_delay;
-                    _bulletList.Add(new bullet(this)
+                    }
+                    else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                     {
+                        bullet_time = bullet_delay;
+                        _bulletList.Add(new bullet(this)
+                        {
 
-                        position_b = new Vector2(s.position_b.X - 20 /*- 240*/, s.position_b.Y + 20 /*- 245*/)
+                            position_b = new Vector2(s.position_b.X - 20 /*- 240*/, s.position_b.Y + 20 /*- 245*/)
 
-                    });
-                }
-                else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
-                {
-                    bullet_time = bullet_delay;
-                    _bulletList.Add(new bullet(this)
+                        });
+                    }
+                    else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                     {
+                        bullet_time = bullet_delay;
+                        _bulletList.Add(new bullet(this)
+                        {
 
-                        position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 275*/)
+                            position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 275*/)
 
-                    });
-                }
-                else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
-                {
-                    bullet_time = bullet_delay;
-                    _bulletList.Add(new bullet(this)
+                        });
+                    }
+                    else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.Space) && bullet_time == 0)
                     {
+                        bullet_time = bullet_delay;
+                        _bulletList.Add(new bullet(this)
+                        {
 
-                        position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 255*/)
+                            position_b = new Vector2(s.position_b.X + 15 /*- 213*/, s.position_b.Y /*- 255*/)
 
-                    });
+                        });
+                    }
                 }
+               
 
-
-
-                //foreach (enemy e in _enemyList)
-                //{
-                //    if (enemy.RectangleEnemy.Intersects(bullet.Rectangle))
-                //    {
-                //        count++;
-                //    }
-                //}
-
-                //if(direction == 1)
-                //{
-                //    foreach (sprite_bullet enemy in _enemyList)
-                //    {
-                //        if (enemy.RectangleEnemy.Intersects(bullet.Rectangle))
-                //        {
-                //            count++;
-                //        }
-                //    }
-                //}
-
-                //kod för att varje skott ska åka åt ett visst håll.
-
-
-                //uppdatera varje objekt i lisan _bulletList
+                _arrowList.ForEach(e => e.Update());
+                _arrowList.RemoveAll(e => !e.IsActive);
                 _bulletList.ForEach(e => e.Update());
                 _bulletList.RemoveAll(e => !e.IsActive);
                 _enemyList.RemoveAll(e => !e.IsActive);

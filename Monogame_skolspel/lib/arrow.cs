@@ -59,22 +59,22 @@ namespace Monogame_skolspel.lib
 
             var ks = Keyboard.GetState();
            
-                if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) /*&& arrow_time == 0*/ )
+                if (ks.IsKeyDown(Keys.D) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
             {
                 arrow_time = arrow_delay;
                 direction = 1;
             }
-            else if(ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.Space) /*&& arrow_time == 0*/)
+            else if(ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
             {
                 arrow_time = arrow_delay;
                 direction = 2;
             }
-            else if(ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) /*&& arrow_time == 0*/)
+            else if(ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.Space) && arrow_time == 0)
             {
                 arrow_time = arrow_delay;
                 direction = 3;
             }
-            else if(ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) /*&& arrow_time == 0*/) 
+            else if(ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.Space) && arrow_time == 0) 
             {
                 arrow_time = arrow_delay;
                 direction = 4;
@@ -98,15 +98,10 @@ namespace Monogame_skolspel.lib
                     position_b.Y -= 15;
                 }
 
-
-
-
             if (position_b.X <= 100) this.IsActive = false;
             if (position_b.X >= 1135) this.IsActive = false;
             if (position_b.Y <= 70) this.IsActive = false;
             if (position_b.Y >= 680) this.IsActive = false;
-
-
         }
 
         public override void Draw(SpriteBatch spritebatch)
