@@ -94,6 +94,7 @@ namespace Monogame_skolspel
         private Texture2D itemshop_heart;
         private Texture2D itemshop_bow;
         private Texture2D itemshop_bullet_speed;
+       
 
         //item.s-heart
         private exitBtn item_buy_heart;
@@ -109,7 +110,8 @@ namespace Monogame_skolspel
         //item.s-bow
         private exitBtn item_buy_bow;
         private Rectangle item_bow_rect;
-        private bool item_bow_buy = false;
+        private bool item_bow_buy;
+        private bool arrowActive = false;
 
         //item.s-bullet
         private exitBtn item_buy_bullet;
@@ -166,7 +168,7 @@ namespace Monogame_skolspel
 
         int Flash;
 
-        bool arrow_bool = true;
+        bool arrow_bool;
 
 
         double step = 0;
@@ -390,11 +392,24 @@ namespace Monogame_skolspel
 
             if (ActiveState == GameState.InGame)
             {
+                var test = Keyboard.GetState();
+
+                if(arrowActive == true)
+                {
+                    if (test.IsKeyDown(Keys.D1))
+                    {
+                        arrow_bool = false;
+                    } 
+                    else if(test.IsKeyDown(Keys.D2))
+                    {
+                        arrow_bool = true;
+                    }
+                }
+              
+
                 backpack = new backpack(backcurrentText, backRect);
                 //_arrowList.Add(new arrow(this));
-               
-
-
+             
                 exitBtn = new exitBtn(exitcurrent_text, exitRect);
                 exitBtn.Update();
                
@@ -874,35 +889,44 @@ namespace Monogame_skolspel
                 }
 
                 //itemshopBtn-Bow;
-                if (count >= 1)
+                if(arrowActive == false)
                 {
-                    item_bow_buy = true;
-                }
-                else
-                {
-                    item_bow_buy = false;
-                }
-
-                if(item_bow_buy == true)
-                {
-                    if(item_bow_rect.Contains(mouseState.Position))
+                    if (count >= 1)
                     {
-                        buy_current_bow = buy_hover;
+                        item_bow_buy = true;
                     }
                     else
                     {
-                        buy_current_bow = buy_main;
+                        item_bow_buy = false;
                     }
                 }
-                else
+               
+                if(arrowActive == false)
                 {
-                    buy_current_bow = buy_hover;
-                }
+                    if (item_bow_buy == true)
+                    {
+                        if (item_bow_rect.Contains(mouseState.Position))
+                        {
+                            buy_current_bow = buy_hover;
+                        }
+                        else
+                        {
+                            buy_current_bow = buy_main;
+                        }
+                    }
+                    else
+                    {
+                        buy_current_bow = buy_hover;
+                    }
 
-                if (item_bow_rect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bow_buy == true)
-                {
-                    count -= 1;
+                    if (item_bow_rect.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && item_bow_buy == true)
+                    {
+                        count -= 1;
+                        arrowActive = true;
+
+                    }
                 }
+                
 
                 //itemshopBtn-Bullet
                 if (count >= 1)
