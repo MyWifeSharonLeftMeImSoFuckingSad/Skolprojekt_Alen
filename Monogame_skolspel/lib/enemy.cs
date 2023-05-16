@@ -69,9 +69,10 @@ namespace Monogame_skolspel.lib
                     ActiveFlash = false;
                     Flash = 0;
                 }
-                position_b.X -= 5;
+
+                //position_b.X -= 5;
             }
-           
+
 
 
 

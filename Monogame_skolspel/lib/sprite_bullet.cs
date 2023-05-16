@@ -73,6 +73,11 @@ namespace Monogame_skolspel.lib
 
         public abstract void Update();
 
+        public virtual void UpdatePos(Vector2 newPos, bool test)
+        {
+
+        }
+
         }
 
     }

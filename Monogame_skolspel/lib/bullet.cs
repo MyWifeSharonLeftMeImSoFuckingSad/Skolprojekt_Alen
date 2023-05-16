@@ -58,6 +58,11 @@ namespace Monogame_skolspel.lib
             }
         }
 
+        public void UpdatePos(Vector2 enemyPos, bool enemyFlash)
+        {
+
+        }
+
         public override void Update()
         {
             bullet_time -= 10;

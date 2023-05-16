@@ -552,12 +552,56 @@ namespace Monogame_skolspel
 
 
                 step += gameTime.ElapsedGameTime.Milliseconds;
-                if (step > 4000)
-                {
-                    _enemyList.Add(new enemy(this));
-                    step = 0;
-                    _enemyList.ForEach(e => e.Update());
-                }
+               
+                    if (step > 4000 && enemyTime == 0)
+                    {
+                        //int x = rnd.Next(0, GraphicsDevice.Viewport.Width - 60);
+                        Rando = rnd.Next(1, 3);
+
+                        if (Rando == 1)
+                        {
+                            _enemyList.Add(new enemy(this)
+                            {
+                                position_b = new Vector2(0, rnd.Next(0, 800))
+                            });
+                            step = 0;
+
+                        }
+                        else if (Rando == 2)
+                        {
+                            _enemyList.Add(new enemy(this)
+                            {
+                                position_b = new Vector2(1300, rnd.Next(0, 800))
+                            });
+                            step = 0;
+                        }
+                        else if(Rando == 3)
+                        {   
+                            _enemyList.Add(new enemy(this)
+                            {
+                                position_b = new Vector2(rnd.Next(0, 1280), 0)
+                            });
+                            step = 0;
+                        }
+                        else if(Rando == 4)
+                        {
+                            _enemyList.Add(new enemy(this)
+                            {
+                                position_b = new Vector2(rnd.Next(0, 1280), 820 )
+                            });
+                            step = 0;
+                        }
+
+                        enemyTime = enemy_delay;
+
+                       
+
+
+
+                        //_enemyList.Add(new enemy(this));
+                        //step = 0;
+                        _enemyList.ForEach(e => e.Update());
+                    }
 
                 //enemy-foreach
                 foreach (enemy e in _enemyList)
@@ -611,7 +655,6 @@ namespace Monogame_skolspel
                         if (a.Rectangle.Intersects(e.RectangleEnemy))
                         {
                             count++;
-                            a.IsActive = false;
                             e.IsActive = false;
                         }
                     }
@@ -652,10 +695,16 @@ namespace Monogame_skolspel
                             e.ActiveFlash = true;
                         }
 
+                        //if (e.ActiveFlash == true)
+                        //{
+                        //    e.position_b.X -= 5;
+                        //}
+
                     }
 
                 }
                 _enemyList.ForEach(e => e.Update());
+                _bulletList.ForEach(e => e.UpdatePos(e.position_b, e.ActiveFlash));
                 _enemyList.RemoveAll(e => !e.IsActive);
 
                 
