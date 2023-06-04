@@ -606,22 +606,23 @@ namespace Monogame_skolspel
                 //enemy-foreach
                 foreach (enemy e in _enemyList)
                 {
+                    Rando = rnd.Next(2, 5);
                     if (s.position_b.X > e.position_b.X)
                     {
-                        e.position_b.X += 2;
+                        e.position_b.X += Rando;
                     }
                     else if (s.position_b.X < e.position_b.X)
                     {
-                        e.position_b.X -= 2;
+                        e.position_b.X -= Rando;
                     }
 
                     if (s.position_b.Y > e.position_b.Y)
                     {
-                        e.position_b.Y += 2;
+                        e.position_b.Y += Rando;
                     }
                     else if (s.position_b.Y < e.position_b.Y)
                     {
-                        e.position_b.Y -= 2;
+                        e.position_b.Y -= Rando;
                     }
 
 
@@ -657,48 +658,29 @@ namespace Monogame_skolspel
                             count++;
                             e.IsActive = false;
                         }
+
+                        if (a.Rectangle.Intersects(e.RectangleEnemy))
+                        {
+                            e.ActiveFlash = true;
+                        }
                     }
 
 
                     //foreach-bullet
                     foreach (bullet b in _bulletList)
                     {
-
                         if (b.Rectangle.Intersects(e.RectangleEnemy))
                         {
                             count++;
                             e.Color = Color.Red;
 
-                            //Flash++;
-
-                            //if(Flash == 10)
-                            //{
-                            //    e.IsActive = false;
-                            //    Flash = 0;
-                            //}
-
-
-
-
                             b.IsActive = false;
-
-
                         }
-
-                        //if (hitTime == 0)
-                        //{
-                        //    e.IsActive = false;
-                        //}
 
                         if (b.Rectangle.Intersects(e.RectangleEnemy))
                         {
                             e.ActiveFlash = true;
                         }
-
-                        //if (e.ActiveFlash == true)
-                        //{
-                        //    e.position_b.X -= 5;
-                        //}
 
                     }
 
@@ -822,20 +804,6 @@ namespace Monogame_skolspel
 
                 //om spelarens rectangle nuddar en fiendes rectangle så sker detta
                 life_green = new Rectangle(0, 0, Health, 25);
-                //if (s.Rectangle.Intersects(e.Rectangle))
-                //{
-                //    //count++;
-                //    Health -= 1;
-                //}
-
-                //if (s.Rectangle.Intersects(b.Rectangle))
-                //{
-                //    count++;
-                //    Health -= 1;
-                //}
-
-
-                //var ks = Keyboard.GetState();
 
                 //om man håller ner D och space så skapas ett skott, bullet_time måste också vara 0
                 //för att detta ska ske. Efter skottet blir bullet_time = 1000 och börjar räkna ner
@@ -918,8 +886,6 @@ namespace Monogame_skolspel
 
                 MouseState mouseState = Mouse.GetState();
                 mouseRect = new Rectangle(mouseState.X, mouseState.Y, 100, 100);
-
-                //backpackUI = true;
 
                 //exitBtn
                 if (exitRect.Contains(mouseState.Position))
