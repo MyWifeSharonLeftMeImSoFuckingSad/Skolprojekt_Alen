@@ -204,7 +204,6 @@ namespace Monogame_skolspel
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 800;
             _graphics.ApplyChanges();
-            // TODO: Add your initialization logic here
 
             base.Initialize();
         }
@@ -217,11 +216,6 @@ namespace Monogame_skolspel
             main_menu = Content.Load<Texture2D>("main-menu-bg");
             counter = Content.Load<SpriteFont>("font");
 
-            //backpack = Content.Load<Texture2D>("backpack-ss");
-            //backpack_hover = Content.Load<Texture2D>("backpack-ss");
-
-            //Start = new Rectangle(10, 11, 35, 105);
-            //Start2 = new Rectangle(10, 11, 35, 105);
             Start_color = new Texture2D(GraphicsDevice, 1, 1);
             Start_color.SetData(new Color[] { Color.DarkGray });
 
@@ -232,7 +226,6 @@ namespace Monogame_skolspel
 
             _player = Content.Load<Texture2D>("playerSheet");
             _enemy = Content.Load<Texture2D>("slime_enemy");
-            //_bullet = Content.Load<Texture2D>("bullet-tiny");
 
             _bulletTest = Content.Load<Texture2D>("bullet-tiny-sheet-color");
 
@@ -285,8 +278,7 @@ namespace Monogame_skolspel
             s = new player(this);
             _sprites.Add(s);
 
-            //e = new enemy(this);
-            //_enemyList.Add(e);
+         
 
 
 
@@ -450,10 +442,7 @@ namespace Monogame_skolspel
                     backpackUI = false;
                 }
 
-                //if (backRect.Contains(mouseState))
-                //{
-
-                //}
+                
 
                 var ks = Keyboard.GetState();
                 //arrow-direction
@@ -598,8 +587,7 @@ namespace Monogame_skolspel
 
 
 
-                        //_enemyList.Add(new enemy(this));
-                        //step = 0;
+                        
                         _enemyList.ForEach(e => e.Update());
                     }
 
@@ -712,81 +700,7 @@ namespace Monogame_skolspel
 
 
 
-                    if (/*Rando == 1 &&*/ BombTime == 0)
-                    {
-                        //BombTime = Bomb_delay;
-                        //_bulletList.Add(new enemy(this
-
-                        //}
-                        //    //else if(Rando == 2)
-                        //    //{
-                        //    //    _sprites.Add(new enemy(_enemy)
-                        //    //    {
-                        //    //        position = new Vector2(500, rnd.Next(1, 301))
-                        //    //    });
-                        //    //}
-                        //    //else if(Rando == 3)
-                        //    //{
-                        //    //    _sprites.Add(new enemy(_enemy)
-                        //    //    {
-                        //    //        position = new Vector2(0, rnd.Next(1, 301))
-                        //    //    });
-                        //    //}
-                        //    //else if(Rando == 4)
-                        //    //{
-                        //    //    _sprites.Add(new enemy(_enemy)
-                        //    //    {
-                        //    //        position = new Vector2(800, rnd.Next(1, 301))
-                        //    //    });
-                        //    //}
-
-                        //    //}
-
-                        //if (s.position.X > e.position_b.X)
-                        //{
-                        //    e.position_b.X += 1;
-                        //}
-                        //else if (s.position.X < e.position_b.X)
-                        //{
-                        //    e.position_b.X -= 1;
-                        //}
-
-                        //if (s.position.Y > e.position_b.Y)
-                        //{
-                        //    e.position_b.Y += 1;
-                        //}
-                        //else if (s.position.Y < e.position_b.Y)
-                        //{
-                        //    e.position_b.Y -= 1;
-                        //}
-
-
-
-                        //if (s.position.X > enemy.position_b.X)
-                        //{
-                        //    enemy.position_b.X += 100;
-                        //}
-                        //else if (s.position.X < enemy.position_b.X)
-                        //{
-                        //    enemy.position_b.X -= 100;
-                        //}
-
-                        //if (s.position.Y > enemy.position_b.Y)
-                        //{
-                        //    enemy.position_b.Y += 100;
-                        //}
-                        //else if (s.position.Y < enemy.position_b.Y)
-                        //{
-                        //    enemy.position_b.Y -= 100;
-                        //}
-
-
-                        //_bulletList.ForEach(e => e.Update());
-
-
-
-
-                    }
+                   
 
                 }
 
@@ -1121,10 +1035,11 @@ namespace Monogame_skolspel
             if (ActiveState == GameState.InGame)
             {
                 _spriteBatch.Draw(background_1, Vector2.Zero, Color.White);
+                 _enemyList.ForEach(e => e.Draw(_spriteBatch));
                 _spriteBatch.Draw(background_2, Vector2.Zero, Color.White);
                 _sprites.ForEach(e => e.Draw(_spriteBatch));
                 _bulletList.ForEach(e => e.Draw(_spriteBatch));
-                _enemyList.ForEach(e => e.Draw(_spriteBatch));
+               
                 _arrowList.ForEach(e => e.Draw(_spriteBatch));
                 backpack.Draw(_spriteBatch);
                 //_spriteBatch.Draw(Start_color, life_red, Color.Red);
